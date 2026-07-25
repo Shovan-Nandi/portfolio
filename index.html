@@ -1,1171 +1,1122 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shovan Nandi — Senior Laravel Engineer · AWS Cloud Infrastructure</title>
-<meta name="description" content="Shovan Nandi is a Senior Laravel Engineer with 8 years of backend experience and 2.7 years designing and operating production AWS infrastructure." />
-
-<!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (system/utility labels) -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-
-<!-- Tailwind CSS (CDN build) -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          ink:      '#0A0F1C', // page background
-          surface:  '#111A2B', // card background
-          surface2: '#17233A', // raised card / hover
-          hairline: '#26334A', // borders
-          ink2:     '#8FA0B8', // muted text
-          paper:    '#EDF2F9', // primary text on dark
-          teal:     '#3FD9C1', // primary accent — signal/status
-          amber:    '#F5A94B', // secondary accent — AWS-adjacent warm accent
-        },
-        fontFamily: {
-          display: ['"Space Grotesk"', 'sans-serif'],
-          body: ['"Inter"', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
-        },
-      },
-    },
-  };
-</script>
-
-<style>
-  html { scroll-behavior: smooth; }
-  body { background-color: #0A0F1C; }
-
-  ::selection { background: #3FD9C1; color: #0A0F1C; }
-
-  /* thin, dark scrollbar to match the console aesthetic */
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #0A0F1C; }
-  ::-webkit-scrollbar-thumb { background: #26334A; border-radius: 999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #3FD9C1; }
-
-  :focus-visible {
-    outline: 2px solid #3FD9C1;
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-
-  section[id] { scroll-margin-top: 84px; }
-
-  /* fade-up reveal, driven by IntersectionObserver toggling .is-visible */
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-  .reveal.is-visible { opacity: 1; transform: translateY(0); }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
-  }
-
-  /* blinking terminal cursor in the hero eyebrow */
-  .caret { display: inline-block; width: .55ch; background: #3FD9C1; animation: blink 1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  /* subtle ambient grid on the hero background */
-  .grid-bg {
-    background-image:
-      linear-gradient(#26334A 1px, transparent 1px),
-      linear-gradient(90deg, #26334A 1px, transparent 1px);
-    background-size: 44px 44px;
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shovan Nandi — Senior Laravel Engineer · AWS Cloud Infrastructure</title>
+        <meta name="description" content="Shovan Nandi is a Senior Laravel Engineer with 8 years of backend experience and 2.7 years designing and operating production AWS infrastructure." />
+        <!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (system/utility labels) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+        <!-- Tailwind CSS (CDN build) -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                  colors: {
+                    ink:      '#0A0F1C', // page background
+                    surface:  '#111A2B', // card background
+                    surface2: '#17233A', // raised card / hover
+                    hairline: '#26334A', // borders
+                    ink2:     '#8FA0B8', // muted text
+                    paper:    '#EDF2F9', // primary text on dark
+                    teal:     '#3FD9C1', // primary accent — signal/status
+                    amber:    '#F5A94B', // secondary accent — AWS-adjacent warm accent
+                  },
+                  fontFamily: {
+                    display: ['"Space Grotesk"', 'sans-serif'],
+                    body: ['"Inter"', 'sans-serif'],
+                    mono: ['"JetBrains Mono"', 'monospace'],
+                  },
+                },
+              },
+            };
+        </script>
+        <style>
+            html { scroll-behavior: smooth; }
+            body { background-color: #0A0F1C; }
+            ::selection { background: #3FD9C1; color: #0A0F1C; }
+            /* thin, dark scrollbar to match the console aesthetic */
+            ::-webkit-scrollbar { width: 10px; height: 10px; }
+            ::-webkit-scrollbar-track { background: #0A0F1C; }
+            ::-webkit-scrollbar-thumb { background: #26334A; border-radius: 999px; }
+            ::-webkit-scrollbar-thumb:hover { background: #3FD9C1; }
+            :focus-visible {
+            outline: 2px solid #3FD9C1;
+            outline-offset: 3px;
+            border-radius: 2px;
+            }
+            section[id] { scroll-margin-top: 84px; }
+            /* fade-up reveal, driven by IntersectionObserver toggling .is-visible */
+            .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+            .reveal.is-visible { opacity: 1; transform: translateY(0); }
+            @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            }
+            /* blinking terminal cursor in the hero eyebrow */
+            .caret { display: inline-block; width: .55ch; background: #3FD9C1; animation: blink 1s steps(1) infinite; }
+            @keyframes blink { 50% { opacity: 0; } }
+            /* subtle ambient grid on the hero background */
+            .grid-bg {
+            background-image:
+            linear-gradient(#26334A 1px, transparent 1px),
+            linear-gradient(90deg, #26334A 1px, transparent 1px);
+            background-size: 44px 44px;
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
             mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
-  }
-
-  /* traffic-flow dots on the architecture diagram lines */
-  .flow-dot { filter: drop-shadow(0 0 4px rgba(63,217,193,.9)); }
-
-  .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .72rem;
-    letter-spacing: .02em;
-  }
-
-  /* section eyebrow badge — e.g. ~/about, ~/resume */
-  .eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .8rem;
-    letter-spacing: .02em;
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    padding: .4rem .85rem;
-    border-radius: 999px;
-    border: 1px solid rgba(63,217,193,.3);
-    background: rgba(63,217,193,.06);
-    color: #3FD9C1;
-  }
-  .eyebrow .dot { width: 6px; height: 6px; border-radius: 999px; background: #3FD9C1; }
-
-  /* proper sub-section titles (technical skills / tools / education) */
-  .subhead {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: .95rem;
-    color: #EDF2F9;
-    letter-spacing: .01em;
-  }
-
-  /* active nav underline */
-  .nav-link { position: relative; }
-  .nav-link::after {
-    content: '';
-    position: absolute; left: 0; bottom: -6px;
-    width: 0; height: 1.5px; background: #3FD9C1;
-    transition: width .25s ease;
-  }
-  .nav-link.active::after, .nav-link:hover::after { width: 100%; }
-  .nav-link.active { color: #EDF2F9; }
-
-  .filter-btn.active {
-    background: #3FD9C1; color: #0A0F1C; border-color: #3FD9C1;
-  }
-
-  textarea { resize: vertical; }
-</style>
-</head>
-
-<body class="bg-ink text-paper font-body antialiased">
-
-<!-- ============================= NAV ============================= -->
-<header class="fixed top-0 inset-x-0 z-50 border-b border-hairline/80 bg-ink/85 backdrop-blur">
-  <nav class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-    <a href="#home" class="font-mono text-sm text-paper hover:text-teal transition-colors">
-      <span class="text-ink2">~/</span>shovan-nandi<span class="text-teal">.dev</span>
-    </a>
-
-    <ul id="nav-links" class="hidden md:flex items-center gap-9 font-mono text-[15px] font-medium tracking-wide text-ink2">
-      <li><a href="#about" class="nav-link hover:text-paper transition-colors" data-nav>About</a></li>
-      <li><a href="#resume" class="nav-link hover:text-paper transition-colors" data-nav>Resume</a></li>
-      <li><a href="#portfolio" class="nav-link hover:text-paper transition-colors" data-nav>Portfolio</a></li>
-      <li><a href="#services" class="nav-link hover:text-paper transition-colors" data-nav>Services</a></li>
-      <li>
-        <a href="#contact" class="nav-link inline-flex items-center gap-2 px-4 py-2 rounded-md border border-teal/40 text-teal hover:bg-teal hover:text-ink transition-colors" data-nav>
-          contact_me()
-        </a>
-      </li>
-    </ul>
-
-    <button id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" class="md:hidden text-paper p-2">
-      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
-      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-    </button>
-  </nav>
-
-  <!-- mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-hairline bg-ink px-5 py-4">
-    <ul class="flex flex-col gap-4 font-mono text-sm text-ink2">
-      <li><a href="#about" class="mobile-nav-link hover:text-teal" data-nav>About</a></li>
-      <li><a href="#resume" class="mobile-nav-link hover:text-teal" data-nav>Resume</a></li>
-      <li><a href="#portfolio" class="mobile-nav-link hover:text-teal" data-nav>Portfolio</a></li>
-      <li><a href="#services" class="mobile-nav-link hover:text-teal" data-nav>Services</a></li>
-      <li><a href="#contact" class="mobile-nav-link hover:text-teal" data-nav>Contact</a></li>
-    </ul>
-  </div>
-</header>
-
-<!-- ============================= HERO ============================= -->
-<section id="home" class="relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-20">
-  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
-
-  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 grid md:grid-cols-2 gap-16 items-center">
-
-    <!-- Copy -->
-    <div class="reveal">
-      <p class="font-mono text-teal text-sm mb-6">
-        <span class="text-ink2">$</span> whoami<span class="caret">&nbsp;</span>
-      </p>
-
-      <h1 class="font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] font-700 tracking-tight text-paper">
-        Shovan Nandi
-      </h1>
-      <p class="mt-4 font-display text-lg sm:text-xl text-teal font-600">
-        Senior Laravel Engineer — AWS Cloud Infrastructure
-      </p>
-
-      <p class="mt-6 text-ink2 text-base sm:text-[1.05rem] leading-relaxed max-w-lg">
-        8 years building secure, scalable backend systems in PHP and Laravel — the last 2.7 provisioning and operating
-        the AWS infrastructure they run on, from a 16-site community platform to production systems for enterprise clients.
-      </p>
-
-      <div class="mt-9 flex flex-wrap items-center gap-4">
-        <a href="resume.pdf" target="_blank" download
-           class="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-teal text-ink font-body font-600 text-sm hover:bg-teal/90 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
-          Download Resume
-        </a>
-        <a href="#contact"
-           class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-hairline text-paper font-body font-600 text-sm hover:border-teal hover:text-teal transition-colors">
-          Contact Me
-        </a>
-      </div>
-    </div>
-
-    <!-- Signature visual: AWS architecture diagram, drawn from the resume's actual infra work -->
-    <div class="reveal relative" style="transition-delay:.12s">
-      <div class="relative rounded-2xl border border-hairline bg-surface/60 p-5 sm:p-7">
-        <p class="tag text-ink2 mb-4">// Production architecture — business-world.16-site-platform</p>
-
-        <svg viewBox="0 0 460 360" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of an AWS architecture with Route 53, CloudFront, Elastic Load Balancer, EC2, RDS, S3 and ElastiCache">
-          <defs>
-            <marker id="dot" markerWidth="6" markerHeight="6" refX="3" refY="3"><circle cx="3" cy="3" r="2.4" fill="#3FD9C1"/></marker>
-          </defs>
-
-          <!-- connecting lines -->
-          <g stroke="#26334A" stroke-width="1.5" fill="none">
-            <path id="p1" d="M80,38 L80,52" />
-            <path id="p1b" d="M80,80 L80,90" />
-            <path id="p2" d="M80,130 L80,170" />
-            <path id="p3" d="M60,210 L60,250" />
-            <path id="p4" d="M100,210 L140,250" />
-            <path id="p5" d="M40,210 L40,250" />
-            <path id="p7" d="M80,170 L340,170 L340,250" />
-          </g>
-
-          <!-- CloudFront -> S3 (CDN serving static/object storage) -->
-          <path id="p8" d="M140,66 L270,66 L270,250" stroke="#F5A94B" stroke-width="1.5" fill="none" stroke-dasharray="4 3" />
-
-          <!-- Route 53 -->
-          <g>
-            <rect x="20" y="10" width="120" height="28" rx="6" fill="#17233A" stroke="#26334A"/>
-            <text x="80" y="29" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="11">Route 53</text>
-          </g>
-
-          <!-- CloudFront -->
-          <g>
-            <rect x="20" y="52" width="120" height="28" rx="6" fill="#2A2413" stroke="#F5A94B"/>
-            <text x="80" y="71" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="11">CloudFront</text>
-          </g>
-
-          <!-- ELB -->
-          <g>
-            <rect x="20" y="90" width="120" height="40" rx="6" fill="#17233A" stroke="#26334A"/>
-            <text x="80" y="115" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="11">Elastic LB</text>
-          </g>
-
-          <!-- EC2 x3 -->
-          <g>
-            <rect x="10" y="170" width="60" height="40" rx="6" fill="#132A28" stroke="#3FD9C1"/>
-            <text x="40" y="194" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">EC2</text>
-            <rect x="80" y="170" width="60" height="40" rx="6" fill="#132A28" stroke="#3FD9C1"/>
-            <text x="110" y="194" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">EC2</text>
-          </g>
-
-          <!-- RDS -->
-          <rect x="10" y="250" width="60" height="40" rx="6" fill="#17233A" stroke="#26334A"/>
-          <text x="40" y="274" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="9">RDS</text>
-
-          <!-- ElastiCache -->
-          <rect x="110" y="250" width="60" height="40" rx="6" fill="#17233A" stroke="#26334A"/>
-          <text x="140" y="270" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="8">Elastic</text>
-          <text x="140" y="281" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="8">Cache</text>
-
-          <!-- S3 -->
-          <rect x="240" y="250" width="60" height="40" rx="6" fill="#2A2413" stroke="#F5A94B"/>
-          <text x="270" y="274" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="10">S3</text>
-
-          <!-- 16x sites label -->
-          <rect x="330" y="250" width="90" height="40" rx="6" fill="#17233A" stroke="#26334A" stroke-dasharray="3 3"/>
-          <text x="375" y="270" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="9">16 sites</text>
-          <text x="375" y="281" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="9">multi-tenant</text>
-
-          <!-- animated traffic dots -->
-          <circle r="2.6" fill="#3FD9C1" class="flow-dot"><animateMotion dur="1.4s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
-          <circle r="2.6" fill="#F5A94B" class="flow-dot"><animateMotion dur="1.4s" begin="0.3s" repeatCount="indefinite"><mpath href="#p1b"/></animateMotion></circle>
-          <circle r="2.6" fill="#3FD9C1" class="flow-dot"><animateMotion dur="2.1s" begin="0.4s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
-          <circle r="2.2" fill="#F5A94B" class="flow-dot"><animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite"><mpath href="#p8"/></animateMotion></circle>
-          <circle r="2.2" fill="#3FD9C1" class="flow-dot"><animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite"><mpath href="#p7"/></animateMotion></circle>
-        </svg>
-
-        <div class="mt-4 flex items-center justify-between font-mono text-[11px] text-ink2 flex-wrap gap-2">
-          <span><span class="text-teal">●</span> uptime — production</span>
-          <span>ec2 · s3 · rds · elb · route53 · cloudfront</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================= ABOUT ============================= -->
-<section id="about" class="py-16 md:py-20 border-t border-hairline">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8">
-    <p class="reveal eyebrow mb-4"><span class="dot"></span>~/about</p>
-    <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper max-w-2xl">
-      The engineer behind the infrastructure
-    </h2>
-
-    <div class="mt-10 grid lg:grid-cols-5 gap-12">
-      <div class="lg:col-span-3 reveal">
-        <p class="text-ink2 leading-relaxed text-[1.02rem]">
-          I'm a backend engineer with 8 years of professional experience — 7 spent building secure, scalable systems with
-          PHP 8, Laravel, Livewire and Filament, and the last 2.7 designing and operating the production cloud infrastructure
-          those systems run on. I've provisioned and managed EC2, S3, RDS, Elastic Load Balancer, ElastiCache and Route 53
-          to run high-traffic, multi-tenant applications, including a 16-site community platform built entirely on AWS.
-        </p>
-        <p class="mt-5 text-ink2 leading-relaxed text-[1.02rem]">
-          At Notebrains I work as the sole technical point of contact for enterprise clients — scoping, building, deploying
-          and supporting 5+ concurrent Laravel and Filament projects end-to-end, including CI/CD with GitHub Actions and
-          integrations with payment gateways, SMS gateways, and CRM platforms like GoHighLevel and Zoho. I also maintain two
-          open-source Filament plugins listed in the official plugins directory.
-        </p>
-
-        <div class="mt-10 flex flex-wrap gap-3">
-          <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Requirements Analysis</span>
-          <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Client Communication</span>    
-          <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Team Coordination</span>                
-          <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Development & Delopyment</span>
-        </div>
-      </div>
-
-      <!-- stat rail -->
-      <div class="lg:col-span-2 reveal grid grid-cols-2 gap-4" style="transition-delay:.1s">
-        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
-          <p class="font-display text-3xl text-teal font-700">8</p>
-          <p class="tag text-ink2 mt-1">Years, Relevent</p>
-        </div>
-        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
-          <p class="font-display text-3xl text-amber font-700">7</p>
-          <p class="tag text-ink2 mt-1">Years, Laravel</p>
-        </div>
-        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
-          <p class="font-display text-3xl text-teal font-700">5</p>
-          <p class="tag text-ink2 mt-1">Years, CodeIgniter</p>
-        </div>
-        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
-          <p class="font-display text-3xl text-amber font-700">2.7</p>
-          <p class="tag text-ink2 mt-1">Years, AWS &amp; DevOps</p>
-        </div>
-
-        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
-          <p class="font-display text-3xl text-teal font-700">16</p>
-          <p class="tag text-ink2 mt-1">Sites on AWS Stack</p>
-        </div>
-        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
-          <p class="font-display text-3xl text-amber font-700">2</p>
-          <p class="tag text-ink2 mt-1">OSS Plugins Published</p>
-        </div>
-        
-        
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================= RESUME ============================= -->
-<section id="resume" class="py-16 md:py-20 border-t border-hairline bg-surface/30">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8">
-    <p class="reveal eyebrow mb-4"><span class="dot"></span>~/resume</p>
-    <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">My path through engineering and infrastructure</h2>
-
-    <!-- experience timeline -->
-    <div class="mt-10 relative">
-      <div class="absolute left-[7px] top-2 bottom-2 w-px bg-hairline hidden sm:block"></div>
-
-      <div class="space-y-10">
-        <!-- Notebrains -->
-        <div class="reveal relative sm:pl-10">
-          <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-teal ring-4 ring-ink"></span>
-          <div class="rounded-xl border border-hairline bg-surface p-6">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-display text-lg text-paper font-600">Senior Associate, Projects</h3>
-              <span class="tag text-teal">Nov 2023 — Present</span>
+            }
+            /* traffic-flow dots on the architecture diagram lines */
+            .flow-dot { filter: drop-shadow(0 0 4px rgba(63,217,193,.9)); }
+            .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            letter-spacing: .02em;
+            }
+            /* section eyebrow badge — e.g. ~/about, ~/resume */
+            .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            letter-spacing: .02em;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .4rem .85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(63,217,193,.3);
+            background: rgba(63,217,193,.06);
+            color: #3FD9C1;
+            }
+            .eyebrow .dot { width: 6px; height: 6px; border-radius: 999px; background: #3FD9C1; }
+            /* proper sub-section titles (technical skills / tools / education) */
+            .subhead {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: .95rem;
+            color: #EDF2F9;
+            letter-spacing: .01em;
+            }
+            /* active nav underline */
+            .nav-link { position: relative; }
+            .nav-link::after {
+            content: '';
+            position: absolute; left: 0; bottom: -6px;
+            width: 0; height: 1.5px; background: #3FD9C1;
+            transition: width .25s ease;
+            }
+            .nav-link.active::after, .nav-link:hover::after { width: 100%; }
+            .nav-link.active { color: #EDF2F9; }
+            .filter-btn.active {
+            background: #3FD9C1; color: #0A0F1C; border-color: #3FD9C1;
+            }
+        </style>
+    </head>
+    <body class="bg-ink text-paper font-body antialiased">
+        <!-- ============================= NAV ============================= -->
+        <header class="fixed top-0 inset-x-0 z-50 border-b border-hairline/80 bg-ink/85 backdrop-blur">
+            <nav class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+                <a href="#home" class="font-mono text-sm text-paper hover:text-teal transition-colors">
+                <span class="text-ink2">~/</span>shovan-nandi<span class="text-teal">.dev</span>
+                </a>
+                <ul id="nav-links" class="hidden md:flex items-center gap-9 font-mono text-[15px] font-medium tracking-wide text-ink2">
+                    <li><a href="#about" class="nav-link hover:text-paper transition-colors" data-nav>About</a></li>
+                    <li><a href="#resume" class="nav-link hover:text-paper transition-colors" data-nav>Resume</a></li>
+                    <li><a href="#portfolio" class="nav-link hover:text-paper transition-colors" data-nav>Portfolio</a></li>
+                    <li><a href="#services" class="nav-link hover:text-paper transition-colors" data-nav>Services</a></li>
+                    <li>
+                        <a href="#contact" class="nav-link inline-flex items-center gap-2 px-4 py-2 rounded-md border border-teal/40 text-teal hover:bg-teal hover:text-ink transition-colors" data-nav>
+                        contact_me()
+                        </a>
+                    </li>
+                </ul>
+                <button id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" class="md:hidden text-paper p-2">
+                    <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </nav>
+            <!-- mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden border-t border-hairline bg-ink px-5 py-4">
+                <ul class="flex flex-col gap-4 font-mono text-sm text-ink2">
+                    <li><a href="#about" class="mobile-nav-link hover:text-teal" data-nav>About</a></li>
+                    <li><a href="#resume" class="mobile-nav-link hover:text-teal" data-nav>Resume</a></li>
+                    <li><a href="#portfolio" class="mobile-nav-link hover:text-teal" data-nav>Portfolio</a></li>
+                    <li><a href="#services" class="mobile-nav-link hover:text-teal" data-nav>Services</a></li>
+                    <li><a href="#contact" class="mobile-nav-link hover:text-teal" data-nav>Contact</a></li>
+                </ul>
             </div>
-            <p class="text-ink2 text-sm mt-1">Notebrains, Kolkata</p>
-            <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-              <li>Sole point of contact for enterprise clients, running 5+ concurrent Laravel/Filament projects from scoping through deployment and infra setup.</li>
-              <li>Builds and maintains CI/CD pipelines with GitHub Actions across client projects.</li>
-              <li>Owns full project lifecycle — scoping, development, QA, UAT, and production release.</li>
-              <li>Authored two open-source Filament plugins listed in the official plugins directory.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- OMM -->
-        <div class="reveal relative sm:pl-10">
-          <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
-          <div class="rounded-xl border border-hairline bg-surface p-6">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-              <span class="tag text-ink2">Feb 2022 — Sept 2023</span>
+        </header>
+        <!-- ============================= HERO ============================= -->
+        <section id="home" class="relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-20">
+            <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+            <div class="relative max-w-6xl mx-auto px-5 sm:px-8 grid md:grid-cols-2 gap-16 items-center">
+                <!-- Copy -->
+                <div class="reveal">
+                    <p class="font-mono text-teal text-sm mb-6">
+                        <span class="text-ink2">$</span> whoami<span class="caret">&nbsp;</span>
+                    </p>
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] font-700 tracking-tight text-paper">
+                        Shovan Nandi
+                    </h1>
+                    <p class="mt-4 font-display text-lg sm:text-xl text-teal font-600">
+                        Senior Laravel Engineer — AWS Cloud Infrastructure
+                    </p>
+                    <p class="mt-6 text-ink2 text-base sm:text-[1.05rem] leading-relaxed max-w-lg">
+                        8 years building secure, scalable backend systems in PHP and Laravel — the last 2.7 provisioning and operating
+                        the AWS infrastructure they run on, from a 16-site community platform to production systems for enterprise clients.
+                    </p>
+                    <div class="mt-9 flex flex-wrap items-center gap-4">
+                        <a href="resume.pdf" target="_blank" download
+                            class="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-teal text-ink font-body font-600 text-sm hover:bg-teal/90 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/>
+                            </svg>
+                            Download Resume
+                        </a>
+                        <a href="#contact"
+                            class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-hairline text-paper font-body font-600 text-sm hover:border-teal hover:text-teal transition-colors">
+                        Contact Me
+                        </a>
+                    </div>
+                </div>
+                <!-- Signature visual: AWS architecture diagram, drawn from the resume's actual infra work -->
+                <div class="reveal relative" style="transition-delay:.12s">
+                    <div class="relative rounded-2xl border border-hairline bg-surface/60 p-5 sm:p-7">
+                        <p class="tag text-ink2 mb-4">// Production architecture — business-world.16-site-platform</p>
+                        <svg viewBox="0 0 460 360" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of an AWS architecture with Route 53, CloudFront, Elastic Load Balancer, EC2, RDS, S3 and ElastiCache">
+                            <defs>
+                                <marker id="dot" markerWidth="6" markerHeight="6" refX="3" refY="3">
+                                    <circle cx="3" cy="3" r="2.4" fill="#3FD9C1"/>
+                                </marker>
+                            </defs>
+                            <!-- connecting lines -->
+                            <g stroke="#26334A" stroke-width="1.5" fill="none">
+                                <path id="p1" d="M80,38 L80,52" />
+                                <path id="p1b" d="M80,80 L80,90" />
+                                <path id="p2" d="M80,130 L80,170" />
+                                <path id="p3" d="M60,210 L60,250" />
+                                <path id="p4" d="M100,210 L140,250" />
+                                <path id="p5" d="M40,210 L40,250" />
+                                <path id="p7" d="M80,170 L340,170 L340,250" />
+                            </g>
+                            <!-- CloudFront -> S3 (CDN serving static/object storage) -->
+                            <path id="p8" d="M140,66 L270,66 L270,250" stroke="#F5A94B" stroke-width="1.5" fill="none" stroke-dasharray="4 3" />
+                            <!-- Route 53 -->
+                            <g>
+                                <rect x="20" y="10" width="120" height="28" rx="6" fill="#17233A" stroke="#26334A"/>
+                                <text x="80" y="29" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="11">Route 53</text>
+                            </g>
+                            <!-- CloudFront -->
+                            <g>
+                                <rect x="20" y="52" width="120" height="28" rx="6" fill="#2A2413" stroke="#F5A94B"/>
+                                <text x="80" y="71" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="11">CloudFront</text>
+                            </g>
+                            <!-- ELB -->
+                            <g>
+                                <rect x="20" y="90" width="120" height="40" rx="6" fill="#17233A" stroke="#26334A"/>
+                                <text x="80" y="115" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="11">Elastic LB</text>
+                            </g>
+                            <!-- EC2 x3 -->
+                            <g>
+                                <rect x="10" y="170" width="60" height="40" rx="6" fill="#132A28" stroke="#3FD9C1"/>
+                                <text x="40" y="194" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">EC2</text>
+                                <rect x="80" y="170" width="60" height="40" rx="6" fill="#132A28" stroke="#3FD9C1"/>
+                                <text x="110" y="194" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">EC2</text>
+                            </g>
+                            <!-- RDS -->
+                            <rect x="10" y="250" width="60" height="40" rx="6" fill="#17233A" stroke="#26334A"/>
+                            <text x="40" y="274" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="9">RDS</text>
+                            <!-- ElastiCache -->
+                            <rect x="110" y="250" width="60" height="40" rx="6" fill="#17233A" stroke="#26334A"/>
+                            <text x="140" y="270" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="8">Elastic</text>
+                            <text x="140" y="281" text-anchor="middle" fill="#EDF2F9" font-family="JetBrains Mono, monospace" font-size="8">Cache</text>
+                            <!-- S3 -->
+                            <rect x="240" y="250" width="60" height="40" rx="6" fill="#2A2413" stroke="#F5A94B"/>
+                            <text x="270" y="274" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="10">S3</text>
+                            <!-- 16x sites label -->
+                            <rect x="330" y="250" width="90" height="40" rx="6" fill="#17233A" stroke="#26334A" stroke-dasharray="3 3"/>
+                            <text x="375" y="270" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="9">16 sites</text>
+                            <text x="375" y="281" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="9">multi-tenant</text>
+                            <!-- animated traffic dots -->
+                            <circle r="2.6" fill="#3FD9C1" class="flow-dot">
+                                <animateMotion dur="1.4s" repeatCount="indefinite">
+                                    <mpath href="#p1"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="2.6" fill="#F5A94B" class="flow-dot">
+                                <animateMotion dur="1.4s" begin="0.3s" repeatCount="indefinite">
+                                    <mpath href="#p1b"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="2.6" fill="#3FD9C1" class="flow-dot">
+                                <animateMotion dur="2.1s" begin="0.4s" repeatCount="indefinite">
+                                    <mpath href="#p2"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="2.2" fill="#F5A94B" class="flow-dot">
+                                <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite">
+                                    <mpath href="#p8"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="2.2" fill="#3FD9C1" class="flow-dot">
+                                <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite">
+                                    <mpath href="#p7"/>
+                                </animateMotion>
+                            </circle>
+                        </svg>
+                        <div class="mt-4 flex items-center justify-between font-mono text-[11px] text-ink2 flex-wrap gap-2">
+                            <span><span class="text-teal">●</span> uptime — production</span>
+                            <span>ec2 · s3 · rds · elb · route53 · cloudfront</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="text-ink2 text-sm mt-1">OMM Software Innovation, Pune</p>
-            <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-              <li>Integrated payment gateway and SMS gateway APIs across several client platforms.</li>
-              <li>Designed custom admin dashboards in Laravel and MySQL for multiple enterprise clients.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Mridaya -->
-        <div class="reveal relative sm:pl-10">
-          <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
-          <div class="rounded-xl border border-hairline bg-surface p-6">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-              <span class="tag text-ink2">Feb 2020 — July 2021</span>
+        </section>
+        <!-- ============================= ABOUT ============================= -->
+        <section id="about" class="py-16 md:py-20 border-t border-hairline">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8">
+                <p class="reveal eyebrow mb-4"><span class="dot"></span>~/about</p>
+                <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper max-w-2xl">
+                    The engineer behind the infrastructure
+                </h2>
+                <div class="mt-10 grid lg:grid-cols-5 gap-12">
+                    <div class="lg:col-span-3 reveal">
+                        <p class="text-ink2 leading-relaxed text-[1.02rem]">
+                            I'm a backend engineer with 8 years of professional experience — 7 spent building secure, scalable systems with
+                            PHP 8, Laravel, Livewire and Filament, and the last 2.7 designing and operating the production cloud infrastructure
+                            those systems run on. I've provisioned and managed EC2, S3, RDS, Elastic Load Balancer, ElastiCache and Route 53
+                            to run high-traffic, multi-tenant applications, including a 16-site community platform built entirely on AWS.
+                        </p>
+                        <p class="mt-5 text-ink2 leading-relaxed text-[1.02rem]">
+                            At Notebrains I work as the sole technical point of contact for enterprise clients — scoping, building, deploying
+                            and supporting 5+ concurrent Laravel and Filament projects end-to-end, including CI/CD with GitHub Actions and
+                            integrations with payment gateways, SMS gateways, and CRM platforms like GoHighLevel and Zoho. I also maintain two
+                            open-source Filament plugins listed in the official plugins directory.
+                        </p>
+                        <div class="mt-10 flex flex-wrap gap-3">
+                            <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Requirements Analysis</span>
+                            <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Client Communication</span>    
+                            <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Team Coordination</span>                
+                            <span class="tag px-3 py-1.5 rounded-md bg-surface border border-hairline text-ink2">Development & Delopyment</span>
+                        </div>
+                    </div>
+                    <!-- stat rail -->
+                    <div class="lg:col-span-2 reveal grid grid-cols-2 gap-4" style="transition-delay:.1s">
+                        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
+                            <p class="font-display text-3xl text-teal font-700">8</p>
+                            <p class="tag text-ink2 mt-1">Years, Relevent</p>
+                        </div>
+                        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
+                            <p class="font-display text-3xl text-amber font-700">7</p>
+                            <p class="tag text-ink2 mt-1">Years, Laravel</p>
+                        </div>
+                        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
+                            <p class="font-display text-3xl text-teal font-700">5</p>
+                            <p class="tag text-ink2 mt-1">Years, CodeIgniter</p>
+                        </div>
+                        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
+                            <p class="font-display text-3xl text-amber font-700">2.7</p>
+                            <p class="tag text-ink2 mt-1">Years, AWS &amp; DevOps</p>
+                        </div>
+                        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
+                            <p class="font-display text-3xl text-teal font-700">16</p>
+                            <p class="tag text-ink2 mt-1">Sites on AWS Stack</p>
+                        </div>
+                        <div class="rounded-xl border border-hairline bg-surface p-5 flex flex-col justify-center">
+                            <p class="font-display text-3xl text-amber font-700">2</p>
+                            <p class="tag text-ink2 mt-1">OSS Plugins Published</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="text-ink2 text-sm mt-1">Mridaya IT Services, Kolkata</p>
-            <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-              <li>Developed reusable backend components and RESTful APIs, cutting duplicate effort across projects.</li>
-              <li>Built scalable multi-tenant platforms using modular HMVC architecture in Laravel.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Trivid -->
-        <div class="reveal relative sm:pl-10">
-          <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
-          <div class="rounded-xl border border-hairline bg-surface p-6">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-display text-lg text-paper font-600">Splunk Developer</h3>
-              <span class="tag text-ink2">Aug 2019 — Feb 2020</span>
+        </section>
+        <!-- ============================= RESUME ============================= -->
+        <section id="resume" class="py-16 md:py-20 border-t border-hairline bg-surface/30">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8">
+                <p class="reveal eyebrow mb-4"><span class="dot"></span>~/resume</p>
+                <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">My path through engineering and infrastructure</h2>
+                <!-- experience timeline -->
+                <div class="mt-10 relative">
+                    <div class="absolute left-[7px] top-2 bottom-2 w-px bg-hairline hidden sm:block"></div>
+                    <div class="space-y-10">
+                        <!-- Notebrains -->
+                        <div class="reveal relative sm:pl-10">
+                            <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-teal ring-4 ring-ink"></span>
+                            <div class="rounded-xl border border-hairline bg-surface p-6">
+                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                    <h3 class="font-display text-lg text-paper font-600">Senior Associate, Projects</h3>
+                                    <span class="tag text-teal">Nov 2023 — Present</span>
+                                </div>
+                                <p class="text-ink2 text-sm mt-1">Notebrains, Kolkata</p>
+                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                    <li>Sole point of contact for enterprise clients, running 5+ concurrent Laravel/Filament projects from scoping through deployment and infra setup.</li>
+                                    <li>Builds and maintains CI/CD pipelines with GitHub Actions across client projects.</li>
+                                    <li>Owns full project lifecycle — scoping, development, QA, UAT, and production release.</li>
+                                    <li>Authored two open-source Filament plugins listed in the official plugins directory.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- OMM -->
+                        <div class="reveal relative sm:pl-10">
+                            <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
+                            <div class="rounded-xl border border-hairline bg-surface p-6">
+                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                    <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
+                                    <span class="tag text-ink2">Feb 2022 — Sept 2023</span>
+                                </div>
+                                <p class="text-ink2 text-sm mt-1">OMM Software Innovation, Pune</p>
+                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                    <li>Integrated payment gateway and SMS gateway APIs across several client platforms.</li>
+                                    <li>Designed custom admin dashboards in Laravel and MySQL for multiple enterprise clients.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Mridaya -->
+                        <div class="reveal relative sm:pl-10">
+                            <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
+                            <div class="rounded-xl border border-hairline bg-surface p-6">
+                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                    <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
+                                    <span class="tag text-ink2">Feb 2020 — July 2021</span>
+                                </div>
+                                <p class="text-ink2 text-sm mt-1">Mridaya IT Services, Kolkata</p>
+                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                    <li>Developed reusable backend components and RESTful APIs, cutting duplicate effort across projects.</li>
+                                    <li>Built scalable multi-tenant platforms using modular HMVC architecture in Laravel.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Trivid -->
+                        <div class="reveal relative sm:pl-10">
+                            <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
+                            <div class="rounded-xl border border-hairline bg-surface p-6">
+                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                    <h3 class="font-display text-lg text-paper font-600">Splunk Developer</h3>
+                                    <span class="tag text-ink2">Aug 2019 — Feb 2020</span>
+                                </div>
+                                <p class="text-ink2 text-sm mt-1">Trivid Technology Services, Kolkata</p>
+                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                    <li>Built log management and monitoring dashboards, improving visibility into system performance.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Fusion + RL, condensed together -->
+                        <div class="reveal relative sm:pl-10">
+                            <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
+                            <div class="rounded-xl border border-hairline bg-surface p-6">
+                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                    <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
+                                    <span class="tag text-ink2">Jan 2019 — July 2019</span>
+                                </div>
+                                <p class="text-ink2 text-sm mt-1">Fusion Techlab, Kolkata</p>
+                                <p class="mt-3 text-ink2 text-sm leading-relaxed">Developed and maintained PHP/Laravel applications, contributing to backend features and bug fixes.</p>
+                            </div>
+                        </div>
+                        <div class="reveal relative sm:pl-10">
+                            <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
+                            <div class="rounded-xl border border-hairline bg-surface p-6">
+                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                    <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
+                                    <span class="tag text-ink2">July 2018 — Dec 2018</span>
+                                </div>
+                                <p class="text-ink2 text-sm mt-1">RL Infocomm Pvt. Ltd., Durgapur</p>
+                                <p class="mt-3 text-ink2 text-sm leading-relaxed">Started his career building PHP-based web applications — foundational backend and database design work.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- skills + education -->
+                <div class="mt-14 grid lg:grid-cols-5 gap-10">
+                    <div class="lg:col-span-3 reveal">
+                        <h3 class="subhead mb-5">Technical Skills</h3>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="rounded-xl border border-hairline bg-surface p-5">
+                                <p class="text-paper font-600 text-sm mb-2">Backend &amp; API</p>
+                                <p class="text-ink2 text-sm leading-relaxed">PHP 8.x, Laravel (MVC / HMVC), Livewire, Filament, CodeIgniter, RESTful API design</p>
+                            </div>
+                            <div class="rounded-xl border border-hairline bg-surface p-5">
+                                <p class="text-paper font-600 text-sm mb-2">Cloud &amp; Infra</p>
+                                <p class="text-ink2 text-sm leading-relaxed">AWS (EC2, S3, RDS, ELB, ElastiCache, Route 53, IAM), Digital Ocean, Railway</p>
+                            </div>
+                            <div class="rounded-xl border border-hairline bg-surface p-5">
+                                <p class="text-paper font-600 text-sm mb-2">CI/CD &amp; Version Control</p>
+                                <p class="text-ink2 text-sm leading-relaxed">GitHub Actions, Git, GitHub</p>
+                            </div>
+                            <div class="rounded-xl border border-hairline bg-surface p-5">
+                                <p class="text-paper font-600 text-sm mb-2">Databases</p>
+                                <p class="text-ink2 text-sm leading-relaxed">MySQL, PostgreSQL — schema design, query optimization, managed RDS/DO deployments</p>
+                            </div>
+                        </div>
+                        <h3 class="subhead mt-9 mb-4">Tools &amp; Technologies</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">GoHighLevel</span>
+                            <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Zoho</span>
+                            <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Cloudflare R2</span>
+                            <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Claude</span>
+                            <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Antigravity</span>
+                            <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Gemini</span>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 reveal" style="transition-delay:.1s">
+                        <h3 class="subhead mb-5">Education</h3>
+                        <div class="rounded-xl border border-hairline bg-surface p-5 mb-4">
+                            <p class="text-paper font-600 text-sm">B.Tech, Computer Science</p>
+                            <p class="text-ink2 text-sm mt-1">Mallabhum Institute of Technology, Bankura, WB</p>
+                            <p class="tag text-ink2 mt-2">2014 — 2018</p>
+                        </div>
+                        <div class="rounded-xl border border-hairline bg-surface p-5 mb-4">
+                            <p class="text-paper font-600 text-sm">Higher Secondary</p>
+                            <p class="text-ink2 text-sm mt-1">Samanta Khanda HK Roy High School, Hooghly, WB</p>
+                            <p class="tag text-ink2 mt-2">2012 — 2014</p>
+                        </div>
+                        <div class="rounded-xl border border-hairline bg-surface p-5">
+                            <p class="text-paper font-600 text-sm">Secondary</p>
+                            <p class="text-ink2 text-sm mt-1">Khatul Shiba Durga High School, Hooghly, WB</p>
+                            <p class="tag text-ink2 mt-2">2011 — 2012</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="text-ink2 text-sm mt-1">Trivid Technology Services, Kolkata</p>
-            <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-              <li>Built log management and monitoring dashboards, improving visibility into system performance.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Fusion + RL, condensed together -->
-        <div class="reveal relative sm:pl-10">
-          <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
-          <div class="rounded-xl border border-hairline bg-surface p-6">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-              <span class="tag text-ink2">Jan 2019 — July 2019</span>
+        </section>
+        <!-- ============================= PORTFOLIO ============================= -->
+        <section id="portfolio" class="py-16 md:py-20 border-t border-hairline">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8">
+                <p class="reveal eyebrow mb-4"><span class="dot"></span>~/portfolio</p>
+                <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">Selected work across code and infrastructure</h2>
+                <p class="reveal mt-3 text-ink2 max-w-xl">A sample of infrastructure builds, client platforms, and open-source plugins. Sample details shown for illustration.</p>
+                <!-- filters -->
+                <div id="filters" class="reveal mt-10 flex flex-wrap gap-2 font-mono text-xs">
+                    <button class="filter-btn active px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="all">All</button>
+                    <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="laravel">Laravel</button>
+                    <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="livewire">Livewire</button>
+                    <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="filament">Filament</button>
+                    <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="api">API Development</button>
+                    <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="aws">Cloud Infrastructure</button>
+                </div>
+                <!-- grid -->
+                <div id="portfolio-grid" class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament aws">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="bgSQ" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0" stop-color="#17233A"/>
+                                        <stop offset="1" stop-color="#111A2B"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="400" height="160" fill="url(#bgSQ)"/>
+                                <circle cx="95" cy="80" r="46" fill="none" stroke="#26334A" stroke-width="9"/>
+                                <circle cx="95" cy="80" r="46" fill="none" stroke="#3FD9C1" stroke-width="9" stroke-linecap="round" stroke-dasharray="185 289" transform="rotate(-90 95 80)"/>
+                                <text x="95" y="86" text-anchor="middle" fill="#EDF2F9" font-family="Space Grotesk, sans-serif" font-size="19" font-weight="600">64%</text>
+                                <path d="M165 80h18l9-28 15 56 11-38 9 10h55" fill="none" stroke="#F5A94B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="352" cy="45" r="4" fill="#3FD9C1"/>
+                                <circle cx="330" cy="112" r="3" fill="#F5A94B"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Spin Quest</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">A fitness and activity tracking platform for monitoring workouts, tracking progress, joining challenges, and managing health goals across mobile and web.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PostgreSQL</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Cloudflare R2</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Railway</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament api">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#17233A"/>
+                                <rect x="120" y="42" width="160" height="76" rx="10" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="120" cy="80" r="11" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="280" cy="80" r="11" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <line x1="205" y1="52" x2="205" y2="108" stroke="#26334A" stroke-width="2" stroke-dasharray="4 4"/>
+                                <text x="163" y="86" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="13">EVENT</text>
+                                <text x="243" y="86" text-anchor="middle" fill="#EDF2F9" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="600">#042</text>
+                                <circle cx="55" cy="42" r="4" fill="#3FD9C1"/>
+                                <circle cx="345" cy="122" r="4" fill="#F5A94B"/>
+                                <circle cx="65" cy="122" r="3" fill="#F5A94B"/>
+                                <circle cx="335" cy="38" r="3" fill="#3FD9C1"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">RallyUp</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">An event management and booking platform for organizers to create and promote events, with secure online ticket purchasing for attendees.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PostgreSQL</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Node.js</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">DigitalOcean</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PowerTranz</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="api aws">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#111A2B"/>
+                                <path d="M40 40l22 11-22 11z" fill="#3FD9C1" opacity="0.75"/>
+                                <path d="M360 40l-22 11 22 11z" fill="#F5A94B" opacity="0.75"/>
+                                <rect x="100" y="58" width="200" height="58" rx="8" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <text x="150" y="97" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600">24</text>
+                                <text x="200" y="95" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="16">–</text>
+                                <text x="250" y="97" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600">18</text>
+                                <text x="200" y="132" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="10">FINAL — GROUP A</text>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Global Sports Management</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">A sports management platform to organize tournaments, manage teams and players, schedule matches, track scores, and streamline operations across organizations.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Node.js</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MongoDB</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">AWS</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">S3 Bucket</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel api livewire">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#17233A"/>
+                                <rect x="140" y="15" width="120" height="130" rx="14" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="160" cy="32" r="5" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="178" cy="32" r="5" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="200" cy="88" r="40" fill="#0A0F1C" stroke="#26334A" stroke-width="6"/>
+                                <circle cx="200" cy="88" r="40" fill="none" stroke="#3FD9C1" stroke-width="6" stroke-dasharray="65 190" stroke-linecap="round"/>
+                                <circle cx="185" cy="72" r="4" fill="#F5A94B" opacity="0.85"/>
+                                <circle cx="216" cy="102" r="3" fill="#3FD9C1" opacity="0.85"/>
+                                <circle cx="192" cy="105" r="2.5" fill="#8FA0B8" opacity="0.7"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Laundry King</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">An end-to-end laundry service app letting customers schedule pickups, place orders, track service status, pay online, and manage order history.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Livewire</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Razorpay</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel livewire">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#111A2B"/>
+                                <path d="M150 18h100v112l-10-8-10 8-10-8-10 8-10-8-10 8-10-8-10 8-10-8-10 8z" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <line x1="165" y1="42" x2="235" y2="42" stroke="#8FA0B8" stroke-width="2"/>
+                                <line x1="165" y1="58" x2="220" y2="58" stroke="#8FA0B8" stroke-width="2"/>
+                                <line x1="165" y1="74" x2="230" y2="74" stroke="#8FA0B8" stroke-width="2"/>
+                                <line x1="165" y1="90" x2="210" y2="90" stroke="#F5A94B" stroke-width="2"/>
+                                <line x1="165" y1="106" x2="225" y2="106" stroke="#8FA0B8" stroke-width="2"/>
+                                <circle cx="300" cy="55" r="16" fill="none" stroke="#3FD9C1" stroke-width="2.5"/>
+                                <path d="M300 47v9l6 5" fill="none" stroke="#3FD9C1" stroke-width="2.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Soon Lee Heng</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">A restaurant order management system streamlining menu management, order processing, kitchen workflow, billing, and daily operations from one admin panel.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Livewire</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel api">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#17233A"/>
+                                <ellipse cx="200" cy="95" rx="72" ry="32" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="200" cy="95" r="24" fill="none" stroke="#3FD9C1" stroke-width="3"/>
+                                <circle cx="170" cy="95" r="3" fill="#8FA0B8"/>
+                                <circle cx="230" cy="95" r="3" fill="#8FA0B8"/>
+                                <rect x="150" y="35" width="60" height="20" rx="4" fill="#0A0F1C" stroke="#F5A94B" stroke-width="2"/>
+                                <text x="180" y="49" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="9">RESERVED</text>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Freshbear</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">A restaurant reservation platform enabling customers to book tables online, while admins manage reservations, seating capacity, availability, and customer information.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Livewire</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PostgreSQL</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#111A2B"/>
+                                <rect x="140" y="72" width="120" height="58" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <rect x="160" y="32" width="14" height="43" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <rect x="190" y="20" width="14" height="55" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <rect x="220" y="42" width="14" height="33" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="167" cy="25" r="9" fill="none" stroke="#8FA0B8" stroke-width="2" opacity="0.6"/>
+                                <circle cx="197" cy="13" r="10" fill="none" stroke="#8FA0B8" stroke-width="2" opacity="0.6"/>
+                                <line x1="140" y1="130" x2="260" y2="130" stroke="#F5A94B" stroke-width="2"/>
+                                <rect x="160" y="95" width="16" height="35" fill="#111A2B" stroke="#3FD9C1" stroke-width="1.5"/>
+                                <rect x="185" y="95" width="16" height="35" fill="#111A2B" stroke="#3FD9C1" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Bangur Cement</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">A corporate website for one of India's leading cement manufacturers, with dynamic content management, lead generation forms, inquiry management, and an admin panel.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#17233A"/>
+                                <circle cx="330" cy="42" r="18" fill="#F5A94B" opacity="0.85"/>
+                                <path d="M70 118h260M90 118v-32a65 65 0 01130 0v32M145 118v-20M200 118v-26M255 118v-20" fill="none" stroke="#3FD9C1" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M40 136q30-9 60 0t60 0 60 0 60 0 60 0" fill="none" stroke="#26334A" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Bridge &amp; Roof</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">An internal enterprise application built for Bridge &amp; Roof Co. (India) Ltd. to digitize operations, improve workflow efficiency, and centralize organizational data.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel aws">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#111A2B"/>
+                                <g stroke="#26334A" stroke-width="1.5">
+                                    <line x1="200" y1="80" x2="100" y2="32"/>
+                                    <line x1="200" y1="80" x2="95" y2="80"/>
+                                    <line x1="200" y1="80" x2="100" y2="128"/>
+                                    <line x1="200" y1="80" x2="300" y2="32"/>
+                                    <line x1="200" y1="80" x2="305" y2="80"/>
+                                    <line x1="200" y1="80" x2="300" y2="128"/>
+                                </g>
+                                <circle r="2.6" fill="#3FD9C1" class="flow-dot">
+                                    <animate attributeName="cx" values="200;100" dur="1.8s" repeatCount="indefinite"/>
+                                    <animate attributeName="cy" values="80;32" dur="1.8s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle r="2.6" fill="#F5A94B" class="flow-dot">
+                                    <animate attributeName="cx" values="200;300" dur="2.2s" repeatCount="indefinite"/>
+                                    <animate attributeName="cy" values="80;128" dur="2.2s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="200" cy="80" r="15" fill="#0A0F1C" stroke="#3FD9C1" stroke-width="2"/>
+                                <g fill="#17233A" stroke="#26334A" stroke-width="1.5">
+                                    <circle cx="100" cy="32" r="9"/>
+                                    <circle cx="95" cy="80" r="9"/>
+                                    <circle cx="100" cy="128" r="9"/>
+                                    <circle cx="300" cy="32" r="9"/>
+                                    <circle cx="305" cy="80" r="9"/>
+                                    <circle cx="300" cy="128" r="9"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Business World</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">A large-scale content management platform powering 16 community websites, with centralized publishing, media management, user administration, and scalable AWS infrastructure.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">AWS</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#17233A"/>
+                                <rect x="70" y="25" width="260" height="110" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="2"/>
+                                <rect x="70" y="25" width="260" height="18" rx="8" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <circle cx="82" cy="34" r="3" fill="#F5A94B"/>
+                                <circle cx="92" cy="34" r="3" fill="#8FA0B8"/>
+                                <circle cx="102" cy="34" r="3" fill="#8FA0B8"/>
+                                <rect x="80" y="53" width="70" height="72" fill="#111A2B"/>
+                                <rect x="88" y="61" width="54" height="9" rx="2" fill="#3FD9C1"/>
+                                <rect x="88" y="76" width="54" height="9" rx="2" fill="#26334A"/>
+                                <rect x="88" y="91" width="54" height="9" rx="2" fill="#26334A"/>
+                                <rect x="88" y="106" width="54" height="9" rx="2" fill="#26334A"/>
+                                <rect x="160" y="61" width="150" height="16" rx="3" fill="#17233A" stroke="#26334A" stroke-width="1.5"/>
+                                <rect x="160" y="83" width="150" height="16" rx="3" fill="#17233A" stroke="#26334A" stroke-width="1.5"/>
+                                <rect x="160" y="105" width="90" height="16" rx="3" fill="#17233A" stroke="#26334A" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Filament Menu Manager</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">An open-source Laravel Filament plugin providing a flexible interface for creating, organizing, and managing application navigation menus. Published on Packagist and listed in the Filament Plugins Directory.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#111A2B"/>
+                                <rect x="140" y="72" width="140" height="50" rx="6" fill="#17233A" stroke="#26334A" stroke-width="2"/>
+                                <rect x="152" y="57" width="140" height="50" rx="6" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <path d="M152 57l70 40 70-40" fill="none" stroke="#3FD9C1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <rect x="164" y="42" width="140" height="50" rx="6" fill="#0A0F1C" stroke="#F5A94B" stroke-width="2"/>
+                                <path d="M164 42l70 40 70-40" fill="none" stroke="#F5A94B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Filament Email Templates Manager</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">An open-source Laravel Filament plugin enabling admins to create, edit, and manage reusable email templates from an intuitive dashboard. Published on Packagist and listed in the Filament Plugins Directory.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel api">
+                        <div class="h-40 overflow-hidden">
+                            <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="400" height="160" fill="#17233A"/>
+                                <path d="M140 112c20-8 40-8 60 0 20-8 40-8 60 0v20c-20-8-40-8-60 0-20-8-40-8-60 0z" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
+                                <line x1="200" y1="90" x2="200" y2="128" stroke="#26334A" stroke-width="2"/>
+                                <path d="M200 42l62 23-62 23-62-23z" fill="#0A0F1C" stroke="#3FD9C1" stroke-width="2" stroke-linejoin="round"/>
+                                <line x1="262" y1="65" x2="262" y2="93" stroke="#F5A94B" stroke-width="2"/>
+                                <circle cx="262" cy="97" r="3" fill="#F5A94B"/>
+                            </svg>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display text-paper font-600">Educorium</h3>
+                            <p class="mt-2 text-ink2 text-sm leading-relaxed">A nursing college management platform where students enroll in courses, purchase subscriptions, access learning resources, manage academic activities, and pay securely online.</p>
+                            <div class="mt-4 flex flex-wrap gap-1.5">
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
+                                <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Razorpay</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <p id="no-results" class="hidden text-ink2 text-sm mt-10 text-center font-mono">// no projects in this category yet</p>
             </div>
-            <p class="text-ink2 text-sm mt-1">Fusion Techlab, Kolkata</p>
-            <p class="mt-3 text-ink2 text-sm leading-relaxed">Developed and maintained PHP/Laravel applications, contributing to backend features and bug fixes.</p>
-          </div>
-        </div>
-
-        <div class="reveal relative sm:pl-10">
-          <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
-          <div class="rounded-xl border border-hairline bg-surface p-6">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-              <span class="tag text-ink2">July 2018 — Dec 2018</span>
+        </section>
+        <!-- ============================= SERVICES ============================= -->
+        <section id="services" class="py-16 md:py-20 border-t border-hairline bg-surface/30">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8">
+                <p class="reveal eyebrow mb-4"><span class="dot"></span>~/services</p>
+                <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">What I can build and run for you</h2>
+                <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors">
+                        <!-- Code Bracket Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 21 12l-3.75 5.25M6.75 6.75 3 12l3.75 5.25M14.25 3 9.75 21" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Laravel Development</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Secure, scalable backend systems in Laravel — MVC and HMVC, built for long-term maintainability.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.05s">
+                        <!-- Arrows Right Left Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h13.5m0 0-3-3m3 3-3 3M16.5 16.5H3m0 0 3-3m-3 3 3 3" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">REST API Development</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Clean, documented RESTful APIs for web, Android, and iOS clients.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.1s">
+                        <!-- Squares 2x2 Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75h6.75v6.75H3.75V3.75Zm9.75 0h6.75v6.75H13.5V3.75ZM3.75 13.5h6.75v6.75H3.75V13.5Zm9.75 0h6.75v6.75H13.5V13.5Z" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Admin Panel Development</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Filament and Livewire admin panels tailored to how your team actually works.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.15s">
+                        <!-- Cloud Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5h10.5A4.5 4.5 0 0 0 18 10.62a6 6 0 0 0-11.25-1.5A4.5 4.5 0 0 0 2.25 15Z" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">AWS Deployment</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">EC2, S3, RDS, ELB, ElastiCache and Route 53 — provisioned, secured, and monitored.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors">
+                        <!-- Circle Stack Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 1.79-9 4s4.03 4 9 4 9-1.79 9-4-4.03-4-9-4Zm-9 9c0 2.21 4.03 4 9 4s9-1.79 9-4m-18 5c0 2.21 4.03 4 9 4s9-1.79 9-4" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Database Design</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">MySQL and PostgreSQL schema design, indexing, and query optimization.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.05s">
+                        <!-- Bolt Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 2.25 4.5 14.25h6l-1.5 7.5L19.5 9.75h-6l1.5-7.5Z" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Performance Optimization</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Caching, query tuning, and infrastructure tuning for high-traffic applications.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.1s">
+                        <!-- Credit Card Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M3.75 6h16.5A1.5 1.5 0 0 1 21.75 7.5v9A1.5 1.5 0 0 1 20.25 18H3.75a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 3.75 6Zm2.25 8.25h3" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Gateway Integration</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Payment and SMS gateway integrations wired for automated, reliable transaction flows.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.15s">
+                        <!-- Wrench Screwdriver Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 3.17a1 1 0 0 1 1.16 0l8.25 6a1 1 0 0 1 .42.81v8.02a1 1 0 0 1-.42.81l-8.25 6a1 1 0 0 1-1.16 0l-8.25-6A1 1 0 0 1 3 17.98V9.96a1 1 0 0 1 .42-.81l8.25-6Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6M12 9v6" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Application Maintenance</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Ongoing support, monitoring, and iterative delivery for production systems.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.2s">
+                        <!-- Rectangle Group Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5h16.5v15H3.75v-15Zm6.75 0v15M3.75 10.5h16.5" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Filament</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Admin panels and internal tools built on Filament, tailored to how your team actually works.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.25s">
+                        <!-- Signal Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 16.5h2.25l2.25-4.5 3.75 7.5 3-6 2.25 3h3.75" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Livewire</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Reactive, server-driven UI with Livewire — dynamic interfaces without a separate frontend build.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.3s">
+                        <!-- Code Bracket Square Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 3.75 12l4.5 5.25M15.75 6.75 20.25 12l-4.5 5.25M13.5 4.5 10.5 19.5" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">CodeIgniter</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Maintenance, upgrades, and new feature builds on existing CodeIgniter applications.</p>
+                    </div>
+                    <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.35s">
+                        <!-- Megaphone Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 3.94A18.72 18.72 0 0 1 19.5 6v12a18.72 18.72 0 0 1-9.16 2.06L6.75 21v-6H5.25A2.25 2.25 0 0 1 3 12.75v-1.5A2.25 2.25 0 0 1 5.25 9h1.5V3l3.59.94Z" />
+                        </svg>
+                        <h3 class="font-display text-paper font-600">Google Ad Manager</h3>
+                        <p class="mt-2 text-ink2 text-sm leading-relaxed">Ad Manager setup and integration for content and publishing platforms.</p>
+                    </div>
+                </div>
             </div>
-            <p class="text-ink2 text-sm mt-1">RL Infocomm Pvt. Ltd., Durgapur</p>
-            <p class="mt-3 text-ink2 text-sm leading-relaxed">Started his career building PHP-based web applications — foundational backend and database design work.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- skills + education -->
-    <div class="mt-14 grid lg:grid-cols-5 gap-10">
-      <div class="lg:col-span-3 reveal">
-        <h3 class="subhead mb-5">Technical Skills</h3>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div class="rounded-xl border border-hairline bg-surface p-5">
-            <p class="text-paper font-600 text-sm mb-2">Backend &amp; API</p>
-            <p class="text-ink2 text-sm leading-relaxed">PHP 8.x, Laravel (MVC / HMVC), Livewire, Filament, CodeIgniter, RESTful API design</p>
-          </div>
-          <div class="rounded-xl border border-hairline bg-surface p-5">
-            <p class="text-paper font-600 text-sm mb-2">Cloud &amp; Infra</p>
-            <p class="text-ink2 text-sm leading-relaxed">AWS (EC2, S3, RDS, ELB, ElastiCache, Route 53, IAM), Digital Ocean, Railway</p>
-          </div>
-          <div class="rounded-xl border border-hairline bg-surface p-5">
-            <p class="text-paper font-600 text-sm mb-2">CI/CD &amp; Version Control</p>
-            <p class="text-ink2 text-sm leading-relaxed">GitHub Actions, Git, GitHub</p>
-          </div>
-          <div class="rounded-xl border border-hairline bg-surface p-5">
-            <p class="text-paper font-600 text-sm mb-2">Databases</p>
-            <p class="text-ink2 text-sm leading-relaxed">MySQL, PostgreSQL — schema design, query optimization, managed RDS/DO deployments</p>
-          </div>
-        </div>
-
-        <h3 class="subhead mt-9 mb-4">Tools &amp; Technologies</h3>
-        <div class="flex flex-wrap gap-2">
-          <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">GoHighLevel</span>
-          <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Zoho</span>
-          <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Cloudflare R2</span>
-          <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Claude</span>
-          <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Antigravity</span>
-          <span class="tag px-2.5 py-1 rounded bg-surface border border-hairline text-ink2">Gemini</span>
-        </div>
-      </div>
-
-      <div class="lg:col-span-2 reveal" style="transition-delay:.1s">
-        <h3 class="subhead mb-5">Education</h3>
-        <div class="rounded-xl border border-hairline bg-surface p-5 mb-4">
-          <p class="text-paper font-600 text-sm">B.Tech, Computer Science</p>
-          <p class="text-ink2 text-sm mt-1">Mallabhum Institute of Technology, Bankura, WB</p>
-          <p class="tag text-ink2 mt-2">2014 — 2018</p>
-        </div>
-        <div class="rounded-xl border border-hairline bg-surface p-5 mb-4">
-          <p class="text-paper font-600 text-sm">Higher Secondary</p>
-          <p class="text-ink2 text-sm mt-1">Samanta Khanda HK Roy High School, Hooghly, WB</p>
-          <p class="tag text-ink2 mt-2">2012 — 2014</p>
-        </div>
-        <div class="rounded-xl border border-hairline bg-surface p-5">
-          <p class="text-paper font-600 text-sm">Secondary</p>
-          <p class="text-ink2 text-sm mt-1">Khatul Shiba Durga High School, Hooghly, WB</p>
-          <p class="tag text-ink2 mt-2">2011 — 2012</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================= PORTFOLIO ============================= -->
-<section id="portfolio" class="py-16 md:py-20 border-t border-hairline">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8">
-    <p class="reveal eyebrow mb-4"><span class="dot"></span>~/portfolio</p>
-    <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">Selected work across code and infrastructure</h2>
-    <p class="reveal mt-3 text-ink2 max-w-xl">A sample of infrastructure builds, client platforms, and open-source plugins. Sample details shown for illustration.</p>
-
-    <!-- filters -->
-    <div id="filters" class="reveal mt-10 flex flex-wrap gap-2 font-mono text-xs">
-      <button class="filter-btn active px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="all">All</button>
-      <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="laravel">Laravel</button>
-      <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="livewire">Livewire</button>
-      <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="filament">Filament</button>
-      <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="api">API Development</button>
-      <button class="filter-btn px-3.5 py-2 rounded-md border border-hairline text-ink2 hover:text-paper transition-colors" data-filter="aws">Cloud Infrastructure</button>
-    </div>
-
-    <!-- grid -->
-    <div id="portfolio-grid" class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament aws">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="bgSQ" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#17233A"/><stop offset="1" stop-color="#111A2B"/></linearGradient></defs>
-            <rect width="400" height="160" fill="url(#bgSQ)"/>
-            <circle cx="95" cy="80" r="46" fill="none" stroke="#26334A" stroke-width="9"/>
-            <circle cx="95" cy="80" r="46" fill="none" stroke="#3FD9C1" stroke-width="9" stroke-linecap="round" stroke-dasharray="185 289" transform="rotate(-90 95 80)"/>
-            <text x="95" y="86" text-anchor="middle" fill="#EDF2F9" font-family="Space Grotesk, sans-serif" font-size="19" font-weight="600">64%</text>
-            <path d="M165 80h18l9-28 15 56 11-38 9 10h55" fill="none" stroke="#F5A94B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="352" cy="45" r="4" fill="#3FD9C1"/>
-            <circle cx="330" cy="112" r="3" fill="#F5A94B"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Spin Quest</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">A fitness and activity tracking platform for monitoring workouts, tracking progress, joining challenges, and managing health goals across mobile and web.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PostgreSQL</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Cloudflare R2</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Railway</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament api">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#17233A"/>
-            <rect x="120" y="42" width="160" height="76" rx="10" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <circle cx="120" cy="80" r="11" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <circle cx="280" cy="80" r="11" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <line x1="205" y1="52" x2="205" y2="108" stroke="#26334A" stroke-width="2" stroke-dasharray="4 4"/>
-            <text x="163" y="86" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="13">EVENT</text>
-            <text x="243" y="86" text-anchor="middle" fill="#EDF2F9" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="600">#042</text>
-            <circle cx="55" cy="42" r="4" fill="#3FD9C1"/>
-            <circle cx="345" cy="122" r="4" fill="#F5A94B"/>
-            <circle cx="65" cy="122" r="3" fill="#F5A94B"/>
-            <circle cx="335" cy="38" r="3" fill="#3FD9C1"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">RallyUp</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">An event management and booking platform for organizers to create and promote events, with secure online ticket purchasing for attendees.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PostgreSQL</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Node.js</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">DigitalOcean</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PowerTranz</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="api aws">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#111A2B"/>
-            <path d="M40 40l22 11-22 11z" fill="#3FD9C1" opacity="0.75"/>
-            <path d="M360 40l-22 11 22 11z" fill="#F5A94B" opacity="0.75"/>
-            <rect x="100" y="58" width="200" height="58" rx="8" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <text x="150" y="97" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600">24</text>
-            <text x="200" y="95" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="16">–</text>
-            <text x="250" y="97" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600">18</text>
-            <text x="200" y="132" text-anchor="middle" fill="#8FA0B8" font-family="JetBrains Mono, monospace" font-size="10">FINAL — GROUP A</text>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Global Sports Management</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">A sports management platform to organize tournaments, manage teams and players, schedule matches, track scores, and streamline operations across organizations.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Node.js</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MongoDB</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">AWS</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">S3 Bucket</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel api livewire">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#17233A"/>
-            <rect x="140" y="15" width="120" height="130" rx="14" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <circle cx="160" cy="32" r="5" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <circle cx="178" cy="32" r="5" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <circle cx="200" cy="88" r="40" fill="#0A0F1C" stroke="#26334A" stroke-width="6"/>
-            <circle cx="200" cy="88" r="40" fill="none" stroke="#3FD9C1" stroke-width="6" stroke-dasharray="65 190" stroke-linecap="round"/>
-            <circle cx="185" cy="72" r="4" fill="#F5A94B" opacity="0.85"/>
-            <circle cx="216" cy="102" r="3" fill="#3FD9C1" opacity="0.85"/>
-            <circle cx="192" cy="105" r="2.5" fill="#8FA0B8" opacity="0.7"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Laundry King</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">An end-to-end laundry service app letting customers schedule pickups, place orders, track service status, pay online, and manage order history.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Livewire</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Razorpay</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel livewire">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#111A2B"/>
-            <path d="M150 18h100v112l-10-8-10 8-10-8-10 8-10-8-10 8-10-8-10 8-10-8-10 8z" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <line x1="165" y1="42" x2="235" y2="42" stroke="#8FA0B8" stroke-width="2"/>
-            <line x1="165" y1="58" x2="220" y2="58" stroke="#8FA0B8" stroke-width="2"/>
-            <line x1="165" y1="74" x2="230" y2="74" stroke="#8FA0B8" stroke-width="2"/>
-            <line x1="165" y1="90" x2="210" y2="90" stroke="#F5A94B" stroke-width="2"/>
-            <line x1="165" y1="106" x2="225" y2="106" stroke="#8FA0B8" stroke-width="2"/>
-            <circle cx="300" cy="55" r="16" fill="none" stroke="#3FD9C1" stroke-width="2.5"/>
-            <path d="M300 47v9l6 5" fill="none" stroke="#3FD9C1" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Soon Lee Heng</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">A restaurant order management system streamlining menu management, order processing, kitchen workflow, billing, and daily operations from one admin panel.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Livewire</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel api">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#17233A"/>
-            <ellipse cx="200" cy="95" rx="72" ry="32" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <circle cx="200" cy="95" r="24" fill="none" stroke="#3FD9C1" stroke-width="3"/>
-            <circle cx="170" cy="95" r="3" fill="#8FA0B8"/>
-            <circle cx="230" cy="95" r="3" fill="#8FA0B8"/>
-            <rect x="150" y="35" width="60" height="20" rx="4" fill="#0A0F1C" stroke="#F5A94B" stroke-width="2"/>
-            <text x="180" y="49" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="9">RESERVED</text>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Freshbear</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">A restaurant reservation platform enabling customers to book tables online, while admins manage reservations, seating capacity, availability, and customer information.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Livewire</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">PostgreSQL</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#111A2B"/>
-            <rect x="140" y="72" width="120" height="58" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <rect x="160" y="32" width="14" height="43" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <rect x="190" y="20" width="14" height="55" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <rect x="220" y="42" width="14" height="33" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <circle cx="167" cy="25" r="9" fill="none" stroke="#8FA0B8" stroke-width="2" opacity="0.6"/>
-            <circle cx="197" cy="13" r="10" fill="none" stroke="#8FA0B8" stroke-width="2" opacity="0.6"/>
-            <line x1="140" y1="130" x2="260" y2="130" stroke="#F5A94B" stroke-width="2"/>
-            <rect x="160" y="95" width="16" height="35" fill="#111A2B" stroke="#3FD9C1" stroke-width="1.5"/>
-            <rect x="185" y="95" width="16" height="35" fill="#111A2B" stroke="#3FD9C1" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Bangur Cement</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">A corporate website for one of India's leading cement manufacturers, with dynamic content management, lead generation forms, inquiry management, and an admin panel.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#17233A"/>
-            <circle cx="330" cy="42" r="18" fill="#F5A94B" opacity="0.85"/>
-            <path d="M70 118h260M90 118v-32a65 65 0 01130 0v32M145 118v-20M200 118v-26M255 118v-20" fill="none" stroke="#3FD9C1" stroke-width="3" stroke-linecap="round"/>
-            <path d="M40 136q30-9 60 0t60 0 60 0 60 0 60 0" fill="none" stroke="#26334A" stroke-width="2"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Bridge &amp; Roof</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">An internal enterprise application built for Bridge &amp; Roof Co. (India) Ltd. to digitize operations, improve workflow efficiency, and centralize organizational data.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel aws">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#111A2B"/>
-            <g stroke="#26334A" stroke-width="1.5">
-              <line x1="200" y1="80" x2="100" y2="32"/>
-              <line x1="200" y1="80" x2="95" y2="80"/>
-              <line x1="200" y1="80" x2="100" y2="128"/>
-              <line x1="200" y1="80" x2="300" y2="32"/>
-              <line x1="200" y1="80" x2="305" y2="80"/>
-              <line x1="200" y1="80" x2="300" y2="128"/>
-            </g>
-            <circle r="2.6" fill="#3FD9C1" class="flow-dot"><animate attributeName="cx" values="200;100" dur="1.8s" repeatCount="indefinite"/><animate attributeName="cy" values="80;32" dur="1.8s" repeatCount="indefinite"/></circle>
-            <circle r="2.6" fill="#F5A94B" class="flow-dot"><animate attributeName="cx" values="200;300" dur="2.2s" repeatCount="indefinite"/><animate attributeName="cy" values="80;128" dur="2.2s" repeatCount="indefinite"/></circle>
-            <circle cx="200" cy="80" r="15" fill="#0A0F1C" stroke="#3FD9C1" stroke-width="2"/>
-            <g fill="#17233A" stroke="#26334A" stroke-width="1.5">
-              <circle cx="100" cy="32" r="9"/><circle cx="95" cy="80" r="9"/><circle cx="100" cy="128" r="9"/>
-              <circle cx="300" cy="32" r="9"/><circle cx="305" cy="80" r="9"/><circle cx="300" cy="128" r="9"/>
-            </g>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Business World</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">A large-scale content management platform powering 16 community websites, with centralized publishing, media management, user administration, and scalable AWS infrastructure.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">AWS</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#17233A"/>
-            <rect x="70" y="25" width="260" height="110" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="2"/>
-            <rect x="70" y="25" width="260" height="18" rx="8" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <circle cx="82" cy="34" r="3" fill="#F5A94B"/><circle cx="92" cy="34" r="3" fill="#8FA0B8"/><circle cx="102" cy="34" r="3" fill="#8FA0B8"/>
-            <rect x="80" y="53" width="70" height="72" fill="#111A2B"/>
-            <rect x="88" y="61" width="54" height="9" rx="2" fill="#3FD9C1"/>
-            <rect x="88" y="76" width="54" height="9" rx="2" fill="#26334A"/>
-            <rect x="88" y="91" width="54" height="9" rx="2" fill="#26334A"/>
-            <rect x="88" y="106" width="54" height="9" rx="2" fill="#26334A"/>
-            <rect x="160" y="61" width="150" height="16" rx="3" fill="#17233A" stroke="#26334A" stroke-width="1.5"/>
-            <rect x="160" y="83" width="150" height="16" rx="3" fill="#17233A" stroke="#26334A" stroke-width="1.5"/>
-            <rect x="160" y="105" width="90" height="16" rx="3" fill="#17233A" stroke="#26334A" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Filament Menu Manager</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">An open-source Laravel Filament plugin providing a flexible interface for creating, organizing, and managing application navigation menus. Published on Packagist and listed in the Filament Plugins Directory.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel filament">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#111A2B"/>
-            <rect x="140" y="72" width="140" height="50" rx="6" fill="#17233A" stroke="#26334A" stroke-width="2"/>
-            <rect x="152" y="57" width="140" height="50" rx="6" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <path d="M152 57l70 40 70-40" fill="none" stroke="#3FD9C1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="164" y="42" width="140" height="50" rx="6" fill="#0A0F1C" stroke="#F5A94B" stroke-width="2"/>
-            <path d="M164 42l70 40 70-40" fill="none" stroke="#F5A94B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Filament Email Templates Manager</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">An open-source Laravel Filament plugin enabling admins to create, edit, and manage reusable email templates from an intuitive dashboard. Published on Packagist and listed in the Filament Plugins Directory.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Filament</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="reveal portfolio-card rounded-xl border border-hairline bg-surface overflow-hidden hover:border-teal/50 transition-colors" data-cats="laravel api">
-        <div class="h-40 overflow-hidden">
-          <svg viewBox="0 0 400 160" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#17233A"/>
-            <path d="M140 112c20-8 40-8 60 0 20-8 40-8 60 0v20c-20-8-40-8-60 0-20-8-40-8-60 0z" fill="#111A2B" stroke="#26334A" stroke-width="2"/>
-            <line x1="200" y1="90" x2="200" y2="128" stroke="#26334A" stroke-width="2"/>
-            <path d="M200 42l62 23-62 23-62-23z" fill="#0A0F1C" stroke="#3FD9C1" stroke-width="2" stroke-linejoin="round"/>
-            <line x1="262" y1="65" x2="262" y2="93" stroke="#F5A94B" stroke-width="2"/>
-            <circle cx="262" cy="97" r="3" fill="#F5A94B"/>
-          </svg>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-paper font-600">Educorium</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">A nursing college management platform where students enroll in courses, purchase subscriptions, access learning resources, manage academic activities, and pay securely online.</p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Laravel</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">MySQL</span>
-            <span class="tag px-2 py-0.5 rounded bg-ink border border-hairline text-ink2">Razorpay</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <p id="no-results" class="hidden text-ink2 text-sm mt-10 text-center font-mono">// no projects in this category yet</p>
-  </div>
-</section>
-
-<!-- ============================= SERVICES ============================= -->
-<section id="services" class="py-16 md:py-20 border-t border-hairline bg-surface/30">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8">
-    <p class="reveal eyebrow mb-4"><span class="dot"></span>~/services</p>
-    <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">What I can build and run for you</h2>
-
-    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors">
-          <!-- Code Bracket Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 21 12l-3.75 5.25M6.75 6.75 3 12l3.75 5.25M14.25 3 9.75 21" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Laravel Development</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Secure, scalable backend systems in Laravel — MVC and HMVC, built for long-term maintainability.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.05s">
-          <!-- Arrows Right Left Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h13.5m0 0-3-3m3 3-3 3M16.5 16.5H3m0 0 3-3m-3 3 3 3" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">REST API Development</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Clean, documented RESTful APIs for web, Android, and iOS clients.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.1s">
-          <!-- Squares 2x2 Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75h6.75v6.75H3.75V3.75Zm9.75 0h6.75v6.75H13.5V3.75ZM3.75 13.5h6.75v6.75H3.75V13.5Zm9.75 0h6.75v6.75H13.5V13.5Z" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Admin Panel Development</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Filament and Livewire admin panels tailored to how your team actually works.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.15s">
-          <!-- Cloud Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5h10.5A4.5 4.5 0 0 0 18 10.62a6 6 0 0 0-11.25-1.5A4.5 4.5 0 0 0 2.25 15Z" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">AWS Deployment</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">EC2, S3, RDS, ELB, ElastiCache and Route 53 — provisioned, secured, and monitored.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors">
-          <!-- Circle Stack Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 1.79-9 4s4.03 4 9 4 9-1.79 9-4-4.03-4-9-4Zm-9 9c0 2.21 4.03 4 9 4s9-1.79 9-4m-18 5c0 2.21 4.03 4 9 4s9-1.79 9-4" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Database Design</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">MySQL and PostgreSQL schema design, indexing, and query optimization.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.05s">
-          <!-- Bolt Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 2.25 4.5 14.25h6l-1.5 7.5L19.5 9.75h-6l1.5-7.5Z" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Performance Optimization</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Caching, query tuning, and infrastructure tuning for high-traffic applications.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.1s">
-          <!-- Credit Card Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M3.75 6h16.5A1.5 1.5 0 0 1 21.75 7.5v9A1.5 1.5 0 0 1 20.25 18H3.75a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 3.75 6Zm2.25 8.25h3" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Gateway Integration</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Payment and SMS gateway integrations wired for automated, reliable transaction flows.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.15s">
-          <!-- Wrench Screwdriver Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 3.17a1 1 0 0 1 1.16 0l8.25 6a1 1 0 0 1 .42.81v8.02a1 1 0 0 1-.42.81l-8.25 6a1 1 0 0 1-1.16 0l-8.25-6A1 1 0 0 1 3 17.98V9.96a1 1 0 0 1 .42-.81l8.25-6Z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6M12 9v6" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Application Maintenance</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Ongoing support, monitoring, and iterative delivery for production systems.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.2s">
-          <!-- Rectangle Group Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5h16.5v15H3.75v-15Zm6.75 0v15M3.75 10.5h16.5" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Filament</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Admin panels and internal tools built on Filament, tailored to how your team actually works.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.25s">
-          <!-- Signal Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 16.5h2.25l2.25-4.5 3.75 7.5 3-6 2.25 3h3.75" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Livewire</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Reactive, server-driven UI with Livewire — dynamic interfaces without a separate frontend build.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.3s">
-          <!-- Code Bracket Square Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-teal mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 3.75 12l4.5 5.25M15.75 6.75 20.25 12l-4.5 5.25M13.5 4.5 10.5 19.5" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">CodeIgniter</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Maintenance, upgrades, and new feature builds on existing CodeIgniter applications.</p>
-      </div>
-
-      <div class="reveal rounded-xl border border-hairline bg-surface p-6 hover:bg-surface2 transition-colors" style="transition-delay:.35s">
-          <!-- Megaphone Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber mb-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 3.94A18.72 18.72 0 0 1 19.5 6v12a18.72 18.72 0 0 1-9.16 2.06L6.75 21v-6H5.25A2.25 2.25 0 0 1 3 12.75v-1.5A2.25 2.25 0 0 1 5.25 9h1.5V3l3.59.94Z" />
-          </svg>
-
-          <h3 class="font-display text-paper font-600">Google Ad Manager</h3>
-          <p class="mt-2 text-ink2 text-sm leading-relaxed">Ad Manager setup and integration for content and publishing platforms.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================= CONTACT ============================= -->
-<section id="contact" class="py-16 md:py-20 border-t border-hairline">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8">
-    <p class="reveal eyebrow mb-4"><span class="dot"></span>~/contact</p>
-    <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">Let's build something reliable together</h2>
-    <p class="reveal mt-3 text-ink2 max-w-xl">Have a project in mind, or infrastructure that needs steadier hands? Send a message — I read every one.</p>
-
-    <div class="mt-10 grid lg:grid-cols-5 gap-10">
-
-      <!-- graphic panel (replaces contact form) -->
-      <div class="reveal lg:col-span-3 rounded-xl border border-hairline bg-surface p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative">
-
-        <!-- ambient grid backdrop -->
-        <div class="absolute inset-0 grid-bg opacity-60 pointer-events-none"></div>
-
-        <div class="relative">
-          <p class="tag text-ink2 mb-1">// status</p>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-teal animate-pulse"></span>
-            <span class="font-mono text-sm text-teal">online &amp; taking new projects</span>
-          </div>
-        </div>
-
-        <!-- routing diagram: you -> channel -> inbox -->
-        <svg viewBox="0 0 480 160" class="relative w-full h-auto my-8" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path id="rp1" d="M40 80 C 140 80, 140 40, 240 40" stroke="#26334A" stroke-width="1.5"/>
-          <path id="rp2" d="M40 80 C 140 80, 140 80, 240 80" stroke="#26334A" stroke-width="1.5"/>
-          <path id="rp3" d="M40 80 C 140 80, 140 120, 240 120" stroke="#26334A" stroke-width="1.5"/>
-          <path d="M240 40 C 320 40, 320 80, 440 80" stroke="#26334A" stroke-width="1.5"/>
-          <path d="M240 80 C 320 80, 320 80, 440 80" stroke="#26334A" stroke-width="1.5"/>
-          <path d="M240 120 C 320 120, 320 80, 440 80" stroke="#26334A" stroke-width="1.5"/>
-
-          <circle r="2.6" fill="#3FD9C1" class="flow-dot"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#rp1"/></animateMotion></circle>
-          <circle r="2.6" fill="#F5A94B" class="flow-dot"><animateMotion dur="2.2s" begin=".4s" repeatCount="indefinite"><mpath href="#rp2"/></animateMotion></circle>
-          <circle r="2.6" fill="#3FD9C1" class="flow-dot"><animateMotion dur="2.9s" begin=".8s" repeatCount="indefinite"><mpath href="#rp3"/></animateMotion></circle>
-
-          <!-- node: you -->
-          <circle cx="40" cy="80" r="22" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
-          <path d="M40 71a5 5 0 100 10 5 5 0 000-10zM31 93c1.6-4.8 5-7 9-7s7.4 2.2 9 7" stroke="#8FA0B8" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-
-          <!-- node: channels -->
-          <rect x="212" y="18" width="56" height="44" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
-          <text x="240" y="45" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">Mail</text>
-          <rect x="212" y="58" width="56" height="44" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
-          <text x="240" y="85" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="10">Call</text>
-          <rect x="212" y="98" width="56" height="44" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
-          <text x="240" y="125" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">Chat</text>
-
-          <!-- node: inbox -->
-          <circle cx="440" cy="80" r="26" fill="#0A0F1C" stroke="#3FD9C1" stroke-width="1.5"/>
-          <path d="M427 71h26v18h-26z" stroke="#3FD9C1" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
-          <path d="M427 71l13 10 13-10" stroke="#3FD9C1" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-
-        <div class="relative">
-          <p class="font-body text-paper text-sm sm:text-base leading-relaxed max-w-md">
-            Pick whichever channel is easiest — every message lands in the same inbox and I reply within 1–2 business days.
-          </p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="mailto:shovannandi95@gmail.com"
-              class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-teal text-ink font-body font-600 text-sm hover:bg-teal/90 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v10.5A2.25 2.25 0 0118.75 19.5H5.25A2.25 2.25 0 013 17.25V6.75z"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.75l8.5 6.25 8.5-6.25"/></svg>
-              Email Me
-            </a>
-            <a href="tel:+918348338409"
-              class="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-hairline text-paper font-body font-600 text-sm hover:border-teal/50 hover:text-teal transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a.994.994 0 01-1.243.28 12.035 12.035 0 01-5.688-5.688.994.994 0 01.28-1.243l1.293-.97a1.125 1.125 0 00.418-1.173L7.61 3.102a1.125 1.125 0 00-1.091-.852H5.25A2.25 2.25 0 003 4.5v2.25z"/></svg>
-              Call Me
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- info -->
-      <div class="reveal lg:col-span-2 space-y-4" style="transition-delay:.1s">
-        <a href="mailto:shovannandi95@gmail.com" class="flex items-start gap-4 rounded-xl border border-hairline bg-surface p-5 hover:border-teal/50 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v10.5A2.25 2.25 0 0118.75 19.5H5.25A2.25 2.25 0 013 17.25V6.75z"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.75l8.5 6.25 8.5-6.25"/></svg>
-          <div>
-            <p class="tag text-ink2">Email</p>
-            <p class="text-paper text-sm mt-1">shovannandi95@gmail.com</p>
-          </div>
-        </a>
-        <a href="tel:+918348338409" class="flex items-start gap-4 rounded-xl border border-hairline bg-surface p-5 hover:border-teal/50 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a.994.994 0 01-1.243.28 12.035 12.035 0 01-5.688-5.688.994.994 0 01.28-1.243l1.293-.97a1.125 1.125 0 00.418-1.173L7.61 3.102a1.125 1.125 0 00-1.091-.852H5.25A2.25 2.25 0 003 4.5v2.25z"/></svg>
-          <div>
-            <p class="tag text-ink2">Call & WhatsApp</p>
-            <p class="text-paper text-sm mt-1">+91 83483 38409</p>
-          </div>
-        </a>
-        <div class="flex items-start gap-4 rounded-xl border border-hairline bg-surface p-5">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-          <div>
-            <p class="tag text-ink2">Location</p>
-            <p class="text-paper text-sm mt-1">Kolkata, West Bengal, India</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================= FOOTER ============================= -->
-<footer class="border-t border-hairline py-10">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <p class="font-mono text-xs text-ink2 text-center sm:text-left">© <span id="year"></span> Shovan Nandi — from codebase to cloud.</p>
-    <a href="#home" class="tag text-ink2 hover:text-teal transition-colors flex items-center gap-1.5">
-      Back to Top
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
-    </a>
-  </div>
-</footer>
-
-<script>
-  // ---- year ----
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // ---- mobile menu ----
-  const menuToggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('icon-open');
-  const iconClose = document.getElementById('icon-close');
-
-  menuToggle.addEventListener('click', () => {
-    const isHidden = mobileMenu.classList.contains('hidden');
-    mobileMenu.classList.toggle('hidden');
-    iconOpen.classList.toggle('hidden');
-    iconClose.classList.toggle('hidden');
-    menuToggle.setAttribute('aria-expanded', String(isHidden));
-  });
-
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
-    });
-  });
-
-  // ---- scroll reveal ----
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => revealObserver.observe(el));
-
-  // ---- active nav link on scroll ----
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link[data-nav]');
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
-  sections.forEach(sec => navObserver.observe(sec));
-
-  // ---- portfolio filtering ----
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.portfolio-card');
-  const noResults = document.getElementById('no-results');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-        const cats = card.dataset.cats.split(' ');
-        const show = filter === 'all' || cats.includes(filter);
-        card.style.display = show ? '' : 'none';
-        if (show) visibleCount++;
-      });
-
-      noResults.classList.toggle('hidden', visibleCount !== 0);
-    });
-  });
-</script>
-
-</body>
+        </section>
+        <!-- ============================= CONTACT ============================= -->
+        <section id="contact" class="py-16 md:py-20 border-t border-hairline">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8">
+                <p class="reveal eyebrow mb-4"><span class="dot"></span>~/contact</p>
+                <h2 class="reveal font-display text-3xl sm:text-4xl font-700 text-paper">Let's build something reliable together</h2>
+                <p class="reveal mt-3 text-ink2 max-w-xl">Have a project in mind, or infrastructure that needs steadier hands? Send a message — I read every one.</p>
+                <div class="mt-10 grid lg:grid-cols-5 gap-10">
+                    <!-- graphic panel (replaces contact form) -->
+                    <div class="reveal lg:col-span-3 rounded-xl border border-hairline bg-surface p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative">
+                        <!-- ambient grid backdrop -->
+                        <div class="absolute inset-0 grid-bg opacity-60 pointer-events-none"></div>
+                        <div class="relative">
+                            <p class="tag text-ink2 mb-1">// status</p>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-teal animate-pulse"></span>
+                                <span class="font-mono text-sm text-teal">online &amp; taking new projects</span>
+                            </div>
+                        </div>
+                        <!-- routing diagram: you -> channel -> inbox -->
+                        <svg viewBox="0 0 480 160" class="relative w-full h-auto my-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path id="rp1" d="M40 80 C 140 80, 140 40, 240 40" stroke="#26334A" stroke-width="1.5"/>
+                            <path id="rp2" d="M40 80 C 140 80, 140 80, 240 80" stroke="#26334A" stroke-width="1.5"/>
+                            <path id="rp3" d="M40 80 C 140 80, 140 120, 240 120" stroke="#26334A" stroke-width="1.5"/>
+                            <path d="M240 40 C 320 40, 320 80, 440 80" stroke="#26334A" stroke-width="1.5"/>
+                            <path d="M240 80 C 320 80, 320 80, 440 80" stroke="#26334A" stroke-width="1.5"/>
+                            <path d="M240 120 C 320 120, 320 80, 440 80" stroke="#26334A" stroke-width="1.5"/>
+                            <circle r="2.6" fill="#3FD9C1" class="flow-dot">
+                                <animateMotion dur="2.6s" repeatCount="indefinite">
+                                    <mpath href="#rp1"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="2.6" fill="#F5A94B" class="flow-dot">
+                                <animateMotion dur="2.2s" begin=".4s" repeatCount="indefinite">
+                                    <mpath href="#rp2"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="2.6" fill="#3FD9C1" class="flow-dot">
+                                <animateMotion dur="2.9s" begin=".8s" repeatCount="indefinite">
+                                    <mpath href="#rp3"/>
+                                </animateMotion>
+                            </circle>
+                            <!-- node: you -->
+                            <circle cx="40" cy="80" r="22" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
+                            <path d="M40 71a5 5 0 100 10 5 5 0 000-10zM31 93c1.6-4.8 5-7 9-7s7.4 2.2 9 7" stroke="#8FA0B8" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                            <!-- node: channels -->
+                            <rect x="212" y="18" width="56" height="44" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
+                            <text x="240" y="45" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">Mail</text>
+                            <rect x="212" y="58" width="56" height="44" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
+                            <text x="240" y="85" text-anchor="middle" fill="#F5A94B" font-family="JetBrains Mono, monospace" font-size="10">Call</text>
+                            <rect x="212" y="98" width="56" height="44" rx="8" fill="#0A0F1C" stroke="#26334A" stroke-width="1.5"/>
+                            <text x="240" y="125" text-anchor="middle" fill="#3FD9C1" font-family="JetBrains Mono, monospace" font-size="10">Chat</text>
+                            <!-- node: inbox -->
+                            <circle cx="440" cy="80" r="26" fill="#0A0F1C" stroke="#3FD9C1" stroke-width="1.5"/>
+                            <path d="M427 71h26v18h-26z" stroke="#3FD9C1" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                            <path d="M427 71l13 10 13-10" stroke="#3FD9C1" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="relative">
+                            <p class="font-body text-paper text-sm sm:text-base leading-relaxed max-w-md">
+                                Pick whichever channel is easiest — every message lands in the same inbox and I reply within 1–2 business days.
+                            </p>
+                            <div class="mt-6 flex flex-wrap gap-3">
+                                <a href="mailto:shovannandi95@gmail.com"
+                                    class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-teal text-ink font-body font-600 text-sm hover:bg-teal/90 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v10.5A2.25 2.25 0 0118.75 19.5H5.25A2.25 2.25 0 013 17.25V6.75z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.75l8.5 6.25 8.5-6.25"/>
+                                    </svg>
+                                    Email Me
+                                </a>
+                                <a href="tel:+918348338409"
+                                    class="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-hairline text-paper font-body font-600 text-sm hover:border-teal/50 hover:text-teal transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a.994.994 0 01-1.243.28 12.035 12.035 0 01-5.688-5.688.994.994 0 01.28-1.243l1.293-.97a1.125 1.125 0 00.418-1.173L7.61 3.102a1.125 1.125 0 00-1.091-.852H5.25A2.25 2.25 0 003 4.5v2.25z"/>
+                                    </svg>
+                                    Call Me
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- info -->
+                    <div class="reveal lg:col-span-2 space-y-4" style="transition-delay:.1s">
+                        <a href="mailto:shovannandi95@gmail.com" class="flex items-start gap-4 rounded-xl border border-hairline bg-surface p-5 hover:border-teal/50 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v10.5A2.25 2.25 0 0118.75 19.5H5.25A2.25 2.25 0 013 17.25V6.75z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.75l8.5 6.25 8.5-6.25"/>
+                            </svg>
+                            <div>
+                                <p class="tag text-ink2">Email</p>
+                                <p class="text-paper text-sm mt-1">shovannandi95@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="tel:+918348338409" class="flex items-start gap-4 rounded-xl border border-hairline bg-surface p-5 hover:border-teal/50 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a.994.994 0 01-1.243.28 12.035 12.035 0 01-5.688-5.688.994.994 0 01.28-1.243l1.293-.97a1.125 1.125 0 00.418-1.173L7.61 3.102a1.125 1.125 0 00-1.091-.852H5.25A2.25 2.25 0 003 4.5v2.25z"/>
+                            </svg>
+                            <div>
+                                <p class="tag text-ink2">Call & WhatsApp</p>
+                                <p class="text-paper text-sm mt-1">+91 83483 38409</p>
+                            </div>
+                        </a>
+                        <div class="flex items-start gap-4 rounded-xl border border-hairline bg-surface p-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                            </svg>
+                            <div>
+                                <p class="tag text-ink2">Location</p>
+                                <p class="text-paper text-sm mt-1">Kolkata, West Bengal, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ============================= FOOTER ============================= -->
+        <footer class="border-t border-hairline py-10">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="font-mono text-xs text-ink2 text-center sm:text-left">© <span id="year"></span> Shovan Nandi — from codebase to cloud.</p>
+                <a href="#home" class="tag text-ink2 hover:text-teal transition-colors flex items-center gap-1.5">
+                    Back to Top
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </footer>
+        <script>
+            // ---- year ----
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // ---- mobile menu ----
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('icon-open');
+            const iconClose = document.getElementById('icon-close');
+            
+            menuToggle.addEventListener('click', () => {
+              const isHidden = mobileMenu.classList.contains('hidden');
+              mobileMenu.classList.toggle('hidden');
+              iconOpen.classList.toggle('hidden');
+              iconClose.classList.toggle('hidden');
+              menuToggle.setAttribute('aria-expanded', String(isHidden));
+            });
+            
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+              link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+              });
+            });
+            
+            // ---- scroll reveal ----
+            const revealEls = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  revealObserver.unobserve(entry.target);
+                }
+              });
+            }, { threshold: 0.12 });
+            revealEls.forEach(el => revealObserver.observe(el));
+            
+            // ---- active nav link on scroll ----
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link[data-nav]');
+            const navObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  const id = entry.target.getAttribute('id');
+                  navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                  });
+                }
+              });
+            }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+            sections.forEach(sec => navObserver.observe(sec));
+            
+            // ---- portfolio filtering ----
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.portfolio-card');
+            const noResults = document.getElementById('no-results');
+            
+            filterBtns.forEach(btn => {
+              btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                let visibleCount = 0;
+            
+                cards.forEach(card => {
+                  const cats = card.dataset.cats.split(' ');
+                  const show = filter === 'all' || cats.includes(filter);
+                  card.style.display = show ? '' : 'none';
+                  if (show) visibleCount++;
+                });
+            
+                noResults.classList.toggle('hidden', visibleCount !== 0);
+              });
+            });
+        </script>
+    </body>
 </html>
