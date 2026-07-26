@@ -1070,7 +1070,7 @@
                             <path d="M427 71l13 10 13-10" stroke="#3FD9C1" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <div class="relative">
-                            <p class="font-body text-paper text-sm sm:text-base leading-relaxed max-w-md">
+                            <p class="font-body text-paper text-sm sm:text-base leading-relaxed">
                                 Pick whichever channel is easiest — every message lands in the same inbox and I reply within 1 business day.
                             </p>
                             <div class="mt-6 flex flex-wrap gap-3">
@@ -1222,6 +1222,38 @@
             
                 noResults.classList.toggle('hidden', visibleCount !== 0);
               });
+            });
+
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+            // Disable text selection start, copy, and cut
+            document.addEventListener('selectstart', (e) => e.preventDefault());
+            document.addEventListener('copy', (e) => e.preventDefault());
+            document.addEventListener('cut', (e) => e.preventDefault());
+
+            // Disable common inspect / view-source / save-page shortcuts
+            document.addEventListener('keydown', (e) => {
+              // F12
+              if (e.key === 'F12') e.preventDefault();
+
+              // Ctrl+Shift+I/J/C (Windows/Linux DevTools) or Cmd+Opt+I/J/C (Mac DevTools)
+              if (
+                (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+                (e.metaKey && e.altKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key))
+              ) {
+                e.preventDefault();
+              }
+
+              // Ctrl+U / Cmd+U (View Source)
+              if ((e.ctrlKey || e.metaKey) && ['U', 'u'].includes(e.key)) {
+                e.preventDefault();
+              }
+
+              // Ctrl+S / Cmd+S (Save Page)
+              if ((e.ctrlKey || e.metaKey) && ['S', 's'].includes(e.key)) {
+                e.preventDefault();
+              }
             });
         </script>
     </body>
