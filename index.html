@@ -131,6 +131,17 @@
             /* sidebar: scrollable when content overflows, but scrollbar hidden */
             #sidebar { scrollbar-width: none; -ms-overflow-style: none; }
             #sidebar::-webkit-scrollbar { display: none; }
+            /* collapsible timeline entries (all but the first, which stays open) */
+            .timeline-toggle { cursor: pointer; }
+            .timeline-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .3s ease;
+            }
+            .timeline-content.expanded { grid-template-rows: 1fr; }
+            .timeline-content > div { overflow: hidden; }
+            .timeline-toggle .chevron { transition: transform .25s ease; }
+            .timeline-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
         </style>
     </head>
     <body class="bg-ink text-paper font-body antialiased">
@@ -456,71 +467,116 @@
                         <div class="reveal relative sm:pl-10">
                             <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
                             <div class="rounded-xl border border-hairline bg-surface p-6">
-                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                <button type="button" class="timeline-toggle w-full text-left flex flex-wrap items-baseline justify-between gap-2" aria-expanded="false">
                                     <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-                                    <span class="tag text-ink2">Feb 2022 — Sept 2023</span>
-                                </div>
+                                    <span class="flex items-center gap-3">
+                                        <span class="tag text-ink2">Feb 2022 — Sept 2023</span>
+                                        <svg class="chevron w-4 h-4 text-ink2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </span>
+                                </button>
                                 <p class="text-ink2 text-sm mt-1">OMM Software Innovation, Pune</p>
-                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-                                    <li>Integrated payment gateway and SMS gateway APIs across several client platforms.</li>
-                                    <li>Designed custom admin dashboards in Laravel and MySQL for multiple enterprise clients.</li>
-                                </ul>
+                                <div class="timeline-content">
+                                    <div>
+                                        <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                            <li>Integrated payment gateway and SMS gateway APIs across several client platforms.</li>
+                                            <li>Designed custom admin dashboards in Laravel and MySQL for multiple enterprise clients.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- Mridaya -->
                         <div class="reveal relative sm:pl-10">
                             <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
                             <div class="rounded-xl border border-hairline bg-surface p-6">
-                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                <button type="button" class="timeline-toggle w-full text-left flex flex-wrap items-baseline justify-between gap-2" aria-expanded="false">
                                     <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-                                    <span class="tag text-ink2">Feb 2020 — July 2021</span>
-                                </div>
+                                    <span class="flex items-center gap-3">
+                                        <span class="tag text-ink2">Feb 2020 — July 2021</span>
+                                        <svg class="chevron w-4 h-4 text-ink2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </span>
+                                </button>
                                 <p class="text-ink2 text-sm mt-1">Mridaya IT Services, Kolkata</p>
-                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-                                    <li>Developed reusable backend components and RESTful APIs, cutting duplicate effort across projects.</li>
-                                    <li>Built scalable multi-tenant platforms using modular HMVC architecture in Laravel.</li>
-                                </ul>
+                                <div class="timeline-content">
+                                    <div>
+                                        <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                            <li>Developed reusable backend components and RESTful APIs, cutting duplicate effort across projects.</li>
+                                            <li>Built scalable multi-tenant platforms using modular HMVC architecture in Laravel.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- Trivid -->
                         <div class="reveal relative sm:pl-10">
                             <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
                             <div class="rounded-xl border border-hairline bg-surface p-6">
-                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                <button type="button" class="timeline-toggle w-full text-left flex flex-wrap items-baseline justify-between gap-2" aria-expanded="false">
                                     <h3 class="font-display text-lg text-paper font-600">Splunk Developer</h3>
-                                    <span class="tag text-ink2">Aug 2019 — Feb 2020</span>
-                                </div>
+                                    <span class="flex items-center gap-3">
+                                        <span class="tag text-ink2">Aug 2019 — Feb 2020</span>
+                                        <svg class="chevron w-4 h-4 text-ink2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </span>
+                                </button>
                                 <p class="text-ink2 text-sm mt-1">Trivid Technology Services, Kolkata</p>
-                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-                                    <li>Built log management and monitoring dashboards, improving visibility into system performance.</li>
-                                </ul>
+                                <div class="timeline-content">
+                                    <div>
+                                        <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                            <li>Built log management and monitoring dashboards, improving visibility into system performance.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- Fusion + RL, condensed together -->
                         <div class="reveal relative sm:pl-10">
                             <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
                             <div class="rounded-xl border border-hairline bg-surface p-6">
-                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                <button type="button" class="timeline-toggle w-full text-left flex flex-wrap items-baseline justify-between gap-2" aria-expanded="false">
                                     <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-                                    <span class="tag text-ink2">Jan 2019 — July 2019</span>
-                                </div>
+                                    <span class="flex items-center gap-3">
+                                        <span class="tag text-ink2">Jan 2019 — July 2019</span>
+                                        <svg class="chevron w-4 h-4 text-ink2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </span>
+                                </button>
                                 <p class="text-ink2 text-sm mt-1">Fusion Techlab, Kolkata</p>
-                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-                                    <li>Developed and maintained PHP/Laravel applications, contributing to backend features and bug fixes.</li>
-                                </ul>
+                                <div class="timeline-content">
+                                    <div>
+                                        <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                            <li>Developed and maintained PHP/Laravel applications, contributing to backend features and bug fixes.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="reveal relative sm:pl-10">
                             <span class="hidden sm:block absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-hairline ring-4 ring-ink"></span>
                             <div class="rounded-xl border border-hairline bg-surface p-6">
-                                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                <button type="button" class="timeline-toggle w-full text-left flex flex-wrap items-baseline justify-between gap-2" aria-expanded="false">
                                     <h3 class="font-display text-lg text-paper font-600">Web Developer</h3>
-                                    <span class="tag text-ink2">July 2018 — Dec 2018</span>
-                                </div>
+                                    <span class="flex items-center gap-3">
+                                        <span class="tag text-ink2">July 2018 — Dec 2018</span>
+                                        <svg class="chevron w-4 h-4 text-ink2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </span>
+                                </button>
                                 <p class="text-ink2 text-sm mt-1">RL Infocomm Pvt. Ltd., Durgapur</p>
-                                <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
-                                    <li>Started his career building PHP-based web applications — foundational backend and database design work.</li>
-                                </ul>
+                                <div class="timeline-content">
+                                    <div>
+                                        <ul class="mt-4 space-y-2 text-ink2 text-sm leading-relaxed list-disc list-inside marker:text-teal">
+                                            <li>Started his career building PHP-based web applications — foundational backend and database design work.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1062,6 +1118,16 @@
                 });
             
                 noResults.classList.toggle('hidden', visibleCount !== 0);
+              });
+            });
+
+            // ---- collapsible timeline entries (first entry stays always open) ----
+            document.querySelectorAll('.timeline-toggle').forEach(btn => {
+              btn.addEventListener('click', () => {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', String(!expanded));
+                const content = btn.parentElement.querySelector('.timeline-content');
+                content.classList.toggle('expanded', !expanded);
               });
             });
 
